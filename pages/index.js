@@ -1,8 +1,13 @@
 import Head from "next/head";
+
+// custom hooks
 import useUser from "../hooks/useUser";
 import useSubs from "../hooks/useSubs";
 
-// import { useState, useEffect } from "react";
+// UI
+import MainContainer from "../components/MainContainer";
+
+import SubscriptionList from "../components/SubscriptionList";
 
 export default function Index() {
   const [user, setUser] = useUser();
@@ -14,11 +19,15 @@ export default function Index() {
         <title>Cancel Reminder</title>
       </Head>
 
-      <div>
+      <MainContainer>
         <h1>Cancel Reminder</h1>
-        <h2>Hello, {user.username}</h2>
-        <h3>You have {subs.length} subscriptions.</h3>
-      </div>
+
+        <h2>Expiring Soon</h2>
+        <SubscriptionList subscriptions={subs} />
+
+        <h2>Your Items</h2>
+        <SubscriptionList subscriptions={subs.slice(3)} />
+      </MainContainer>
     </>
   );
 }

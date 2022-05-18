@@ -1,0 +1,48 @@
+.subscriptionListItem {
+  width: 100%;
+
+  padding: 0.5rem;
+  border-radius: 10px;
+  margin-bottom: var(--spacing-size);
+  background-color: var(--secondary-background);
+  border: solid 1px var(--border-color);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+
+.subscriptionLogo {
+  width: auto;
+  height: 50px;
+}
+
+.subscriptionName {
+  display: none;
+  color: var(--primary-text);
+  font-size: 1.2rem;
+  flex: 2;
+  text-align: center;
+}
+
+.numberDaysLeft {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--bright-yellow);
+
+  flex: 1;
+  text-align: center;
+}
+
+.expirationDate {
+  font-size: 0.65rem;
+  color: var(--secondary-text);
+  flex: 1;
+  text-align: center;
+}
+
+@media (min-width: 800px) {
+  .subscriptionName {
+    display: block;
+  }
+}

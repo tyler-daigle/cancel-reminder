@@ -1,5 +1,7 @@
 import BillingPeriod, { checkForValidBillingPeriod } from "./BillingPeriod";
 
+let nextId = 0;
+
 export default class Subscription {
   name;
   billingPeriod;
@@ -33,5 +35,6 @@ export default class Subscription {
     this.startDate = startDate;
     this.isActive = typeof isActive === "boolean" ? isActive : false;
     this.logo = logo;
+    this.id = nextId++;
   }
 }

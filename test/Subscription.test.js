@@ -19,4 +19,12 @@ describe("Subscription Class Test", () => {
       const sub = new Subscription("testname", BillingPeriod.MONTHLY, 9.99, today, true, "logo.jpg");
     }).not.toThrowError();
   });
+
+  it("Multiple subscriptions should have different IDs", () => {
+    const today = new Date();
+    const sub1 = new Subscription("testname", BillingPeriod.MONTHLY, 9.99, today, true, "logo.jpg");
+    const sub2 = new Subscription("testname", BillingPeriod.MONTHLY, 9.99, today, true, "logo.jpg");
+
+    expect(sub1.id).not.toEqual(sub2.id);
+  });
 });

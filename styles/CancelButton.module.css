@@ -1,0 +1,15 @@
+.cancelButton {
+  padding: 1rem 1rem;
+  display: block;
+  background-color: var(--warning-button-bg);
+  border: solid 1px var(--warning-button-border);
+  color: var(--warning-button-fg);
+  border-radius: 10px;
+  font-family: inherit;
+  font-weight: bold;
+  font-size: 0.8rem;
+}
+
+.cancelButton:active {
+  background-color: var(--warning-button-border);
+}
