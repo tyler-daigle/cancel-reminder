@@ -8,6 +8,7 @@ import useSubs from "../hooks/useSubs";
 import MainContainer from "../components/MainContainer";
 
 import SubscriptionList from "../components/SubscriptionList";
+import AddItemButton from "../components/AddItemButton";
 
 export default function Index() {
   const [user, setUser] = useUser();
@@ -24,9 +25,9 @@ export default function Index() {
 
         <h2>Expiring Soon</h2>
         <SubscriptionList subscriptions={subs} />
-
         <h2>Your Items</h2>
         <SubscriptionList subscriptions={subs.slice(3)} />
+        <AddItemButton />
       </MainContainer>
     </>
   );
