@@ -1,9 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
+
+:root {
+  --primary-background: #282A36;
+  --secondary-background: #44475A;
+
+  --primary-text: #F8F8F2;
+  --secondary-text: #BD93F9;
+
+  --border-color: #575757;
+
+  --bright-yellow: #F1FA8C;
+  --bright-green: #50FA7B;
+
+  --primary-button-bg: #BD93F9;
+  --primary-button-fg: #f8f8f2;
+
+  --warning-button-bg: #FF5555;
+  --warning-button-fg: #f8f8f2;
+  --warning-button-border: #CB3030;
+
+  --cancel-button-bg: #575757;
+  --cancel-button-fg: #f8f8f2;
+
+  --spacing-size: 2rem;
+}
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  font-family: "Rubik", sans-serif;
+  font-size: 16px;
+  background-color: var(--primary-background);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--secondary-text);
 }
 
 a {
