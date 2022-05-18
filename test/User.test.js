@@ -1,4 +1,4 @@
-import User from "../types/user";
+import User from "../types/User";
 
 describe("User Class Test", () => {
   it("User object should be created correctly", () => {
