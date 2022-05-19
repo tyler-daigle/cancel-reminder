@@ -49,7 +49,7 @@ export default function Index() {
 
         <ConfirmCancelDialog open={dialogOpen} />
         <ConfirmDeleteDialog open={confirmDeleteDialogOpen} />
-        <AddItemDialog open={addItemDialogOpen} />
+        <AddItemDialog open={addItemDialogOpen} onCancel={() => setAddItemDialogOpen(false)} />
         <h1>Cancel Reminder</h1>
 
         <Container>
@@ -78,7 +78,7 @@ export default function Index() {
 
           <CollapsingContainer collapsed={listTwoCollapsed}>
             <SubscriptionList subscriptions={subs} />
-            <AddItemButton />
+            <AddItemButton onClick={() => setAddItemDialogOpen(true)} />
           </CollapsingContainer>
         </Container>
 

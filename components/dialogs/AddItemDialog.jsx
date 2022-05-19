@@ -6,7 +6,7 @@ import DialogContainer from "@components/UI/DialogContainer";
 
 import BillingPeriod from "types/BillingPeriod";
 
-export default function AddItemDialog({ open }) {
+export default function AddItemDialog({ open, onSubmit, onCancel }) {
 
   const submitForm = (e) => {
     e.preventDefault();
@@ -22,53 +22,70 @@ export default function AddItemDialog({ open }) {
         <h3 className={styles.dialogHeader}>Add A New Item</h3>
         <form onSubmit={submitForm}>
 
-          <label htmlFor="itemName">Item Name:</label>
+          <label className={styles.inputLabel} htmlFor="itemName">Item Name:</label>
           <input type="text" id="itemName" />
 
-          <label htmlFor="itemCost">Item Cost:</label>
-          <input type="text" id="itemCost" />
+          <label className={styles.inputLabel} htmlFor="itemCost">Item Cost:</label>
+          <input type="number" id="itemCost" />
 
-          <label htmlFor="itemStartDate">Subscription Start Date:</label>
+          <label className={styles.inputLabel} htmlFor="itemStartDate">Subscription Start Date:</label>
           <input onInput={(e) => setStartDate(e.target.valueAsDate)} type="date" id="itemStartDate" />
 
           {/* TODO: Extract the billing radio buttons as a seperate component */}
           <fieldset className={styles.billingPeriodFieldSet}>
-            <input
-              type="radio" id="billingPeriodWeekly"
-              name="billingPeriod" value={BillingPeriod.WEEKLY}
-              checked={selectedBillingPeriod === BillingPeriod.WEEKLY}
-              onChange={(e) => setSelectedBillingPeriod(e.target.value)} />
-            <label htmlFor="billingPeriodWeekly">Weekly</label>
+            <legend>Billing Period</legend>
+            <div className={styles.billingPeriodRadioContainer}>
 
-            <input
-              type="radio" id="billingPeriodYearly"
-              name="billingPeriod" value={BillingPeriod.YEARLY}
-              checked={selectedBillingPeriod === BillingPeriod.YEARLY}
-              onChange={(e) => setSelectedBillingPeriod(e.target.value)} />
-            <label htmlFor="billingPeriodYearly">Yearly</label>
+              <div className={styles.billingPeriodItem}>
+                <input
+                  type="radio" id="billingPeriodWeekly"
+                  name="billingPeriod" value={BillingPeriod.WEEKLY}
+                  checked={selectedBillingPeriod === BillingPeriod.WEEKLY}
+                  onChange={(e) => setSelectedBillingPeriod(e.target.value)} />
+                <label htmlFor="billingPeriodWeekly">Weekly</label>
+              </div>
 
-            <input
-              type="radio" id="billingPeriodMonthly" name="billingPeriod"
-              value={BillingPeriod.MONTHLY}
-              checked={selectedBillingPeriod === BillingPeriod.MONTHLY}
-              onChange={(e) => setSelectedBillingPeriod(e.target.value)} />
-            <label htmlFor="billingPeriodMonthly">Monthly</label>
+              <div className={styles.billingPeriodItem}>
 
-            <input
-              type="radio" id="billingPeriodSixMonths" name="billingPeriod"
-              value={BillingPeriod.SIXMONTHS}
-              checked={selectedBillingPeriod === BillingPeriod.SIXMONTHS}
-              onChange={(e) => setSelectedBillingPeriod(e.target.value)} />
-            <label htmlFor="billingPeriodSixMonths">Every 6 Months</label>
+                <input
+                  type="radio" id="billingPeriodYearly"
+                  name="billingPeriod" value={BillingPeriod.YEARLY}
+                  checked={selectedBillingPeriod === BillingPeriod.YEARLY}
+                  onChange={(e) => setSelectedBillingPeriod(e.target.value)} />
+                <label htmlFor="billingPeriodYearly">Yearly</label>
+              </div>
+
+              <div className={styles.billingPeriodItem}>
+
+                <input
+                  type="radio" id="billingPeriodMonthly" name="billingPeriod"
+                  value={BillingPeriod.MONTHLY}
+                  checked={selectedBillingPeriod === BillingPeriod.MONTHLY}
+                  onChange={(e) => setSelectedBillingPeriod(e.target.value)} />
+                <label htmlFor="billingPeriodMonthly">Monthly</label>
+              </div>
+
+              <div className={styles.billingPeriodItem}>
+
+                <input
+                  type="radio" id="billingPeriodSixMonths" name="billingPeriod"
+                  value={BillingPeriod.SIXMONTHS}
+                  checked={selectedBillingPeriod === BillingPeriod.SIXMONTHS}
+                  onChange={(e) => setSelectedBillingPeriod(e.target.value)} />
+                <label htmlFor="billingPeriodSixMonths">Every 6 Months</label>
+              </div>
+            </div>
           </fieldset>
 
-          <label htmlFor="cancelUrl">Cancellation URL or site's main URL:</label>
+          <label className={styles.inputLabel} htmlFor="cancelUrl">Cancellation URL or site's main URL:</label>
           <input type="url" id="cancelUrl" />
 
           <IconSelector />
 
-          <button type="submit" className={styles.submitButton}>Add Item</button>
-          <button type="button" className={styles.cancelButton}>Cancel</button>
+          <div className={styles.buttonContainer}>
+            <button type="submit" className={styles.submitButton}>Add Item</button>
+            <button onClick={onCancel} type="button" className={styles.cancelButton}>Cancel</button>
+          </div>
         </form>
       </div>
     </DialogContainer>
