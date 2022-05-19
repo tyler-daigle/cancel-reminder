@@ -11,7 +11,6 @@ import MainContainer from "@components/UI/MainContainer";
 import AddItemButton from "@components/UI/AddItemButton";
 import CollapsingContainer from "@components/UI/CollapsingContainer";
 import Container from "@components/UI/Container";
-import BackDrop from "@components/UI/BackDrop";
 import ConfirmDeleteDialog from "@components/UI/ConfirmDeleteDialog";
 import ConfirmCancelDialog from "@components/UI/ConfirmCancelDialog";
 
@@ -43,9 +42,6 @@ export default function Index() {
       <Head>
         <title>Cancel Reminder</title>
       </Head>
-
-      {/* might need seperate variable for tracking backdrop and which dialog is open  */}
-      <BackDrop dialogOpen={dialogOpen} />
 
       <MainContainer>
 
