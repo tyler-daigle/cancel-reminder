@@ -11,11 +11,8 @@ import styles from "@styles/components/CollapsingContainerHeader.module.css";
 
 export default function CollapsingContainerHeader({ collapsed, onClick, children }) {
   return (
-    <div onClick={onClick}>
-      {collapsed ?
-        <h2 className={styles.expiringSoonHeader}>+ {children}</h2> :
-        <h2 className={styles.expiringSoonHeader}>- {children}</h2>
-      }
-    </div>
+    collapsed ?
+      <h2 onClick={onClick} className={styles.collapsingContainerHeader}>+ {children}</h2> :
+      <h2 onClick={onClick} className={styles.collapsingContainerHeader}>- {children}</h2>
   );
 }

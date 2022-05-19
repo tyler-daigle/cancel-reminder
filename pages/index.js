@@ -16,6 +16,7 @@ import Container from "@components/UI/Container";
 import SubscriptionList from "@components/SubscriptionList";
 import CollapsingContainerHeader from "@components/CollapsingContainerHeader";
 import ItemListToolbar from "@components/ItemListToolbar";
+import ItemCount from "@components/ItemCount";
 
 export default function Index() {
   const [user, setUser] = useUser();
@@ -48,14 +49,15 @@ export default function Index() {
             <CollapsingContainerHeader collapsed={listTwoCollapsed} onClick={() => setListTwoCollapsed(!listTwoCollapsed)}>
               Your Items
             </CollapsingContainerHeader>
+            <ItemCount count={subs.length} />
           </ItemListToolbar>
 
           <CollapsingContainer collapsed={listTwoCollapsed}>
             <SubscriptionList subscriptions={subs.slice(3)} />
+            <AddItemButton />
           </CollapsingContainer>
         </Container>
 
-        <AddItemButton />
       </MainContainer>
     </>
   );

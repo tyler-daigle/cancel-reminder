@@ -1,3 +1,4 @@
-.expiringSoonHeader {
+.collapsingContainerHeader {
   font-weight: 300;
+  cursor: pointer;
 }
