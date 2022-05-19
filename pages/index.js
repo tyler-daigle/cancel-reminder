@@ -52,8 +52,12 @@ export default function Index() {
             <CollapsingContainerHeader collapsed={listTwoCollapsed} onClick={() => setListTwoCollapsed(!listTwoCollapsed)}>
               Your Items
             </CollapsingContainerHeader>
-            <ItemCount count={subs.length} />
-            <DropDownSelector selectedOption={sortBy} selectId="sortBy" labelText="Sort By" options={sortByOptions} onChange={(e) => setSortBy(e.target.value)} />
+            {!listTwoCollapsed &&
+              <>
+                <ItemCount count={subs.length} />
+                <DropDownSelector selectedOption={sortBy} selectId="sortBy" labelText="Sort By" options={sortByOptions} onChange={(e) => setSortBy(e.target.value)} />
+              </>
+            }
           </ItemListToolbar>
 
           <CollapsingContainer collapsed={listTwoCollapsed}>

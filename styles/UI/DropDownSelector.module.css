@@ -1,0 +1,18 @@
+.ddsLabel {
+  color: var(--primary-text);
+  font-size: .9rem;
+  margin-right: 1rem;
+}
+
+.ddsSelect {
+  border: none;
+  font-family: inherit;
+  background-color: transparent;
+  color: var(--select-color);
+  cursor: pointer;
+}
+
+.ddsOption {
+  color: black;
+
+}
