@@ -1,0 +1,24 @@
+.monthlyTotalContainer {
+  background-color: var(--secondary-background);
+  padding: 2.5rem var(--spacing-size);
+  border: solid 1px var(--border-color);
+  border-radius: 10px;
+  text-align: center;
+}
+
+.numberItems {
+  color: var(--primary-text);
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.monthlyTotalContainer h3 {
+  color: var(--primary-text);
+  font-size: 1.25rem;
+}
+
+.totalMonthlyCost {
+  color: var(--bright-yellow);
+  font-size: 2.25rem;
+  font-weight: bold;
+}
