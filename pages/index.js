@@ -10,10 +10,12 @@ import useSubs from "../hooks/useSubs";
 import MainContainer from "@components/UI/MainContainer";
 import AddItemButton from "@components/UI/AddItemButton";
 import CollapsingContainer from "@components/UI/CollapsingContainer";
+import Container from "@components/UI/Container";
 
 // Components
 import SubscriptionList from "@components/SubscriptionList";
-import ExpiringSoonHeader from "@components/ExpiringSoonHeader";
+import CollapsingContainerHeader from "@components/CollapsingContainerHeader";
+import ItemListToolbar from "@components/ItemListToolbar";
 
 export default function Index() {
   const [user, setUser] = useUser();
@@ -30,15 +32,29 @@ export default function Index() {
       <MainContainer>
         <h1>Cancel Reminder</h1>
 
-        <ExpiringSoonHeader collapsed={listOneCollapsed} onClick={() => setListOneCollapsed(!listOneCollapsed)} />
-        <CollapsingContainer collapsed={listOneCollapsed}>
-          <SubscriptionList subscriptions={subs} />
-        </CollapsingContainer>
+        <Container>
+          <CollapsingContainerHeader collapsed={listOneCollapsed} onClick={() => setListOneCollapsed(!listOneCollapsed)}>
+            Expiring Soon
+          </CollapsingContainerHeader>
 
-        <h2>Your Items</h2>
-        <CollapsingContainer collapsed={listTwoCollapsed}>
-          <SubscriptionList subscriptions={subs.slice(3)} />
-        </CollapsingContainer>
+          <CollapsingContainer collapsed={listOneCollapsed}>
+            <SubscriptionList subscriptions={subs} />
+          </CollapsingContainer>
+        </Container>
+
+
+        <Container>
+          <ItemListToolbar>
+            <CollapsingContainerHeader collapsed={listTwoCollapsed} onClick={() => setListTwoCollapsed(!listTwoCollapsed)}>
+              Your Items
+            </CollapsingContainerHeader>
+          </ItemListToolbar>
+
+          <CollapsingContainer collapsed={listTwoCollapsed}>
+            <SubscriptionList subscriptions={subs.slice(3)} />
+          </CollapsingContainer>
+        </Container>
+
         <AddItemButton />
       </MainContainer>
     </>
