@@ -1,3 +1,4 @@
 .mainContainer {
   padding: var(--spacing-size);
+  position: relative;
 }
