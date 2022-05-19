@@ -17,8 +17,10 @@ export default function DialogContainer({ children, open }) {
   }
 
   return (
-    <div className={styles.dialogContainer}>
-      {children}
+    <div className={styles.dialogContainerBackdrop}>
+      <div className={styles.dialogContainer}>
+        {children}
+      </div>
     </div>
   );
 }

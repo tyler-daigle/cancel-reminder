@@ -14,14 +14,16 @@
 
   --primary-button-bg: #BD93F9;
   --primary-button-fg: #f8f8f2;
+  --primary-button-active: #9c5df5;
 
   --warning-button-bg: #FF5555;
   --warning-button-fg: #f8f8f2;
   --warning-button-border: #CB3030;
+  --warning-button-active: #CB3030;
 
   --cancel-button-bg: #575757;
   --cancel-button-fg: #f8f8f2;
-
+  --cancel-button-active: #303030;
   --spacing-size: 1rem;
 
   --select-color: #949393;

@@ -1,5 +1,5 @@
 .dialogContainer {
-  position: absolute;
+  position: relative;
   width: 90%;
   left: 5%;
   top: 45%;
@@ -11,4 +11,16 @@
   padding: var(--spacing-size);
   color: var(--primary-text);
   z-index: 3;
+  opacity: 1;
+}
+
+.dialogContainerBackdrop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.6);
+
+  z-index: 2;
 }
