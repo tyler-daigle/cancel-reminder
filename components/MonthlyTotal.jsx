@@ -2,12 +2,13 @@ import styles from "@styles/components/MonthlyTotal.module.css";
 
 export default function MonthlyTotal({ items }) {
   const total = totalItems(items);
+  const currencySymbol = "$";
 
   return (
     <div className={styles.monthlyTotalContainer}>
       <span className={styles.numberItems}>{items.length} items</span>
       <h3>Total Monthly Cost:</h3>
-      <span className={styles.totalMonthlyCost}>${total}</span>
+      <span className={styles.totalMonthlyCost}>{currencySymbol}{total}</span>
     </div>
   );
 }
