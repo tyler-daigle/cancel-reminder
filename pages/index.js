@@ -17,12 +17,15 @@ import SubscriptionList from "@components/SubscriptionList";
 import CollapsingContainerHeader from "@components/CollapsingContainerHeader";
 import ItemListToolbar from "@components/ItemListToolbar";
 import ItemCount from "@components/ItemCount";
+import DropDownSelector from "@components/UI/DropDownSelector";
 
 export default function Index() {
   const [user, setUser] = useUser();
   const [subs, setSubs] = useSubs();
   const [listOneCollapsed, setListOneCollapsed] = useState(false);
   const [listTwoCollapsed, setListTwoCollapsed] = useState(false);
+  const [sortBy, setSortBy] = useState("");
+  const sortByOptions = ["Name", "Days Left"];
 
   return (
     <>
@@ -49,7 +52,12 @@ export default function Index() {
             <CollapsingContainerHeader collapsed={listTwoCollapsed} onClick={() => setListTwoCollapsed(!listTwoCollapsed)}>
               Your Items
             </CollapsingContainerHeader>
-            <ItemCount count={subs.length} />
+            {!listTwoCollapsed &&
+              <>
+                <ItemCount count={subs.length} />
+                <DropDownSelector selectedOption={sortBy} selectId="sortBy" labelText="Sort By" options={sortByOptions} onChange={(e) => setSortBy(e.target.value)} />
+              </>
+            }
           </ItemListToolbar>
 
           <CollapsingContainer collapsed={listTwoCollapsed}>
