@@ -5,10 +5,10 @@ import useUser from "../hooks/useUser";
 import useSubs from "../hooks/useSubs";
 
 // UI
-import MainContainer from "../components/MainContainer";
+import MainContainer from "@components/UI/MainContainer";
+import AddItemButton from "@components/UI/AddItemButton";
 
-import SubscriptionList from "../components/SubscriptionList";
-import AddItemButton from "../components/AddItemButton";
+import SubscriptionList from "@components/SubscriptionList";
 
 export default function Index() {
   const [user, setUser] = useUser();

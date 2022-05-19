@@ -1,4 +1,4 @@
-import styles from "../styles/CancelButton.module.css";
+import styles from "@styles/UI/CancelButton.module.css";
 
 export default function CancelButton() {
   return (

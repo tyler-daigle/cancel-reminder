@@ -1,6 +1,6 @@
-import styles from "../styles/SubscriptionList.module.css";
+import styles from "@styles/components/SubscriptionList.module.css";
 
-import SubscriptionListItem from "./SubscriptionListItem";
+import SubscriptionListItem from "@components/SubscriptionListItem";
 
 export default function SubscriptionList({ subscriptions }) {
 

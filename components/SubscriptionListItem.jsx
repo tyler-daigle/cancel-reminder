@@ -1,7 +1,7 @@
-import styles from "../styles/SubscriptionListItem.module.css";
+import styles from "@styles/components/SubscriptionListItem.module.css";
 
-import CancelButton from "./CancelButton";
-import EditButton from "./EditButton";
+import CancelButton from "@components/UI/CancelButton";
+import EditButton from "@components/UI/EditButton";
 
 export default function SubscriptionListItem({ subscriptionItem }) {
   const { name, billingPeriod, price, startDate, isActive, logo } = subscriptionItem;
