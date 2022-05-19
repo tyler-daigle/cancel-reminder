@@ -24,6 +24,8 @@ export default function Index() {
   const [subs, setSubs] = useSubs();
   const [listOneCollapsed, setListOneCollapsed] = useState(false);
   const [listTwoCollapsed, setListTwoCollapsed] = useState(false);
+  const [sortBy, setSortBy] = useState("");
+  const sortByOptions = ["Name", "Days Left"];
 
   return (
     <>
@@ -51,7 +53,7 @@ export default function Index() {
               Your Items
             </CollapsingContainerHeader>
             <ItemCount count={subs.length} />
-            <DropDownSelector selectId="sortBy" label="Sort By" options={["one", "two", "three"]} onChange={(e) => console.log(e.target.value)} />
+            <DropDownSelector selectedOption={sortBy} selectId="sortBy" labelText="Sort By" options={sortByOptions} onChange={(e) => setSortBy(e.target.value)} />
           </ItemListToolbar>
 
           <CollapsingContainer collapsed={listTwoCollapsed}>
