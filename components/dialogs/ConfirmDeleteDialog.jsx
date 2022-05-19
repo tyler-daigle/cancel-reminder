@@ -1,4 +1,4 @@
-import DialogContainer from "./DialogContainer";
+import DialogContainer from "@components/UI/DialogContainer";
 
 export default function ConfirmDeleteDialog({ open }) {
   return (

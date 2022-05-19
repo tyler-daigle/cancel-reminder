@@ -11,8 +11,8 @@ import MainContainer from "@components/UI/MainContainer";
 import AddItemButton from "@components/UI/AddItemButton";
 import CollapsingContainer from "@components/UI/CollapsingContainer";
 import Container from "@components/UI/Container";
-import ConfirmDeleteDialog from "@components/UI/ConfirmDeleteDialog";
-import ConfirmCancelDialog from "@components/UI/ConfirmCancelDialog";
+import ConfirmDeleteDialog from "@components/dialogs/ConfirmDeleteDialog";
+import ConfirmCancelDialog from "@components/dialogs/ConfirmCancelDialog";
 
 // Components
 import SubscriptionList from "@components/SubscriptionList";
@@ -21,6 +21,7 @@ import ItemListToolbar from "@components/ItemListToolbar";
 import ItemCount from "@components/ItemCount";
 import DropDownSelector from "@components/UI/DropDownSelector";
 import MonthlyTotal from "@components/MonthlyTotal";
+import AddItemDialog from "@components/dialogs/AddItemDialog";
 
 export default function Index() {
   const [user, setUser] = useUser();
@@ -34,6 +35,7 @@ export default function Index() {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
+  const [addItemDialogOpen, setAddItemDialogOpen] = useState(true);
 
   const sortByOptions = ["Name", "Days Left"];
 
@@ -47,7 +49,7 @@ export default function Index() {
 
         <ConfirmCancelDialog open={dialogOpen} />
         <ConfirmDeleteDialog open={confirmDeleteDialogOpen} />
-
+        <AddItemDialog open={addItemDialogOpen} />
         <h1>Cancel Reminder</h1>
 
         <Container>
