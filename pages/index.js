@@ -66,6 +66,8 @@ export default function Index() {
           </CollapsingContainer>
         </Container>
 
+
+
       </MainContainer>
     </>
   );
