@@ -18,12 +18,16 @@ import CollapsingContainerHeader from "@components/CollapsingContainerHeader";
 import ItemListToolbar from "@components/ItemListToolbar";
 import ItemCount from "@components/ItemCount";
 import DropDownSelector from "@components/UI/DropDownSelector";
+import MonthlyTotal from "@components/MonthlyTotal";
 
 export default function Index() {
   const [user, setUser] = useUser();
   const [subs, setSubs] = useSubs();
+
   const [listOneCollapsed, setListOneCollapsed] = useState(false);
   const [listTwoCollapsed, setListTwoCollapsed] = useState(false);
+  const [monthlyTotalCollapsed, setMonthlyTotalCollapsed] = useState(false);
+
   const [sortBy, setSortBy] = useState("");
   const sortByOptions = ["Name", "Days Left"];
 
@@ -42,7 +46,7 @@ export default function Index() {
           </CollapsingContainerHeader>
 
           <CollapsingContainer collapsed={listOneCollapsed}>
-            <SubscriptionList subscriptions={subs} />
+            <SubscriptionList subscriptions={subs.slice(0, 2)} />
           </CollapsingContainer>
         </Container>
 
@@ -61,8 +65,17 @@ export default function Index() {
           </ItemListToolbar>
 
           <CollapsingContainer collapsed={listTwoCollapsed}>
-            <SubscriptionList subscriptions={subs.slice(3)} />
+            <SubscriptionList subscriptions={subs} />
             <AddItemButton />
+          </CollapsingContainer>
+        </Container>
+
+        <Container>
+          <CollapsingContainerHeader collapsed={monthlyTotalCollapsed} onClick={() => setMonthlyTotalCollapsed(!monthlyTotalCollapsed)}>
+            Monthly Total
+          </CollapsingContainerHeader>
+          <CollapsingContainer collapsed={monthlyTotalCollapsed}>
+            <MonthlyTotal items={subs} />
           </CollapsingContainer>
         </Container>
 
