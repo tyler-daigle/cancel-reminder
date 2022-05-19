@@ -12,6 +12,8 @@ import AddItemButton from "@components/UI/AddItemButton";
 import CollapsingContainer from "@components/UI/CollapsingContainer";
 import Container from "@components/UI/Container";
 import BackDrop from "@components/UI/BackDrop";
+import ConfirmDeleteDialog from "@components/UI/ConfirmDeleteDialog";
+import ConfirmCancelDialog from "@components/UI/ConfirmCancelDialog";
 
 // Components
 import SubscriptionList from "@components/SubscriptionList";
@@ -20,7 +22,6 @@ import ItemListToolbar from "@components/ItemListToolbar";
 import ItemCount from "@components/ItemCount";
 import DropDownSelector from "@components/UI/DropDownSelector";
 import MonthlyTotal from "@components/MonthlyTotal";
-import DialogContainer from "@components/UI/DialogContainer";
 
 export default function Index() {
   const [user, setUser] = useUser();
@@ -31,8 +32,9 @@ export default function Index() {
   const [monthlyTotalCollapsed, setMonthlyTotalCollapsed] = useState(false);
 
   const [sortBy, setSortBy] = useState("");
-  const [dialogOpen, setDialogOpen] = useState(true);
 
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
   const sortByOptions = ["Name", "Days Left"];
 
   return (
@@ -41,15 +43,14 @@ export default function Index() {
         <title>Cancel Reminder</title>
       </Head>
 
+      {/* might need seperate variable for tracking backdrop and which dialog is open  */}
       <BackDrop dialogOpen={dialogOpen} />
 
       <MainContainer>
-        <DialogContainer open={dialogOpen}>
-          <h1>This is a test</h1>
-          <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Modi tempore in eos optio deserunt quia sapiente et veniam vel, maxime recusandae perferendis fuga illum rem dolorem, ducimus voluptate expedita! Commodi officiis aut beatae excepturi sed. Error minima sapiente possimus deleniti sequi odio consectetur eos veniam fuga, quis amet voluptate! Velit dolores totam magni minima quo voluptas obcaecati esse error quibusdam aut reiciendis voluptate animi molestias ex suscipit consectetur assumenda, quos numquam. Ipsam molestiae, perferendis sed ipsum nihil at alias iusto libero error, voluptatum provident et tenetur! Nesciunt veritatis provident assumenda, optio nisi, inventore explicabo, sunt suscipit expedita qui consequatur reprehenderit.
-          </p>
-        </DialogContainer>
+
+        <ConfirmCancelDialog open={dialogOpen} />
+        <ConfirmDeleteDialog open={confirmDeleteDialogOpen} />
+
         <h1>Cancel Reminder</h1>
 
         <Container>
