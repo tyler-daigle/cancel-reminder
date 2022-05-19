@@ -14,6 +14,7 @@ export default function SubscriptionListItem({ subscriptionItem }) {
       <span className={styles.subscriptionName}>{name}</span>
       <span className={styles.numberDaysLeft}>{daysLeftString}</span>
       <span className={styles.expirationDate}>{expirationDate}</span>
+      <CancelButton />
     </li>
   );
 }
