@@ -17,6 +17,7 @@ import SubscriptionList from "@components/SubscriptionList";
 import CollapsingContainerHeader from "@components/CollapsingContainerHeader";
 import ItemListToolbar from "@components/ItemListToolbar";
 import ItemCount from "@components/ItemCount";
+import DropDownSelector from "@components/UI/DropDownSelector";
 
 export default function Index() {
   const [user, setUser] = useUser();
@@ -50,6 +51,7 @@ export default function Index() {
               Your Items
             </CollapsingContainerHeader>
             <ItemCount count={subs.length} />
+            <DropDownSelector selectId="sortBy" label="Sort By" options={["one", "two", "three"]} onChange={(e) => console.log(e.target.value)} />
           </ItemListToolbar>
 
           <CollapsingContainer collapsed={listTwoCollapsed}>
