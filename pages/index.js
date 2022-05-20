@@ -33,6 +33,7 @@ export default function Index() {
   const [listOneCollapsed, setListOneCollapsed] = useState(false);
   const [listTwoCollapsed, setListTwoCollapsed] = useState(false);
   const [monthlyTotalCollapsed, setMonthlyTotalCollapsed] = useState(false);
+  const [calendarCollapsed, setCalendarCollapsed] = useState(false);
 
   const [sortBy, setSortBy] = useState("");
 
@@ -98,10 +99,10 @@ export default function Index() {
         </Container>
 
         <Container>
-          <CollapsingContainer collapsed={false}>
-            <CollapsingContainerHeader collapsed={false}>
-              Calendar View
-            </CollapsingContainerHeader>
+          <CollapsingContainerHeader collapsed={calendarCollapsed} onClick={() => setCalendarCollapsed(!calendarCollapsed)}>
+            Calendar View
+          </CollapsingContainerHeader>
+          <CollapsingContainer collapsed={calendarCollapsed}>
 
             <Calendar month={currentMonth} year={2022} monthInc={incMonth} monthDec={decMonth} />
           </CollapsingContainer>
