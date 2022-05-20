@@ -24,7 +24,13 @@ export const Days = {
   SATURDAY: 6
 };
 
-export class Calendar {
+export const MonthStrings = [
+  "January", "February", "March", "April", "May",
+  "June", "July", "August", "September", "October",
+  "November", "December"
+];
+
+export class CalendarCreator {
 
   constructor(year) {
     this.year = year;

@@ -22,6 +22,9 @@ import ItemCount from "@components/ItemCount";
 import DropDownSelector from "@components/UI/DropDownSelector";
 import MonthlyTotal from "@components/MonthlyTotal";
 import AddItemDialog from "@components/dialogs/AddItemDialog";
+import Calendar from "@components/Calendar";
+
+import { Months } from "utils/calendar";
 
 export default function Index() {
   const [user, setUser] = useUser();
@@ -36,8 +39,20 @@ export default function Index() {
   const [dialogOpen, setDialogOpen] = useState(false);
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
   const [addItemDialogOpen, setAddItemDialogOpen] = useState(false);
-
+  const [currentMonth, setCurrentMonth] = useState(Months.OCTOBER);
   const sortByOptions = ["Name", "Days Left"];
+
+  const incMonth = () => {
+    if (currentMonth < 11) {
+      setCurrentMonth(currentMonth + 1);
+    }
+  };
+
+  const decMonth = () => {
+    if (currentMonth > 0) {
+      setCurrentMonth(currentMonth - 1);
+    }
+  };
 
   return (
     <>
@@ -83,6 +98,16 @@ export default function Index() {
         </Container>
 
         <Container>
+          <CollapsingContainer collapsed={false}>
+            <CollapsingContainerHeader collapsed={false}>
+              Calendar View
+            </CollapsingContainerHeader>
+
+            <Calendar month={currentMonth} year={2022} monthInc={incMonth} monthDec={decMonth} />
+          </CollapsingContainer>
+        </Container>
+
+        <Container>
           <CollapsingContainerHeader collapsed={monthlyTotalCollapsed} onClick={() => setMonthlyTotalCollapsed(!monthlyTotalCollapsed)}>
             Monthly Total
           </CollapsingContainerHeader>
@@ -90,6 +115,7 @@ export default function Index() {
             <MonthlyTotal items={subs} />
           </CollapsingContainer>
         </Container>
+
 
       </MainContainer>
     </>

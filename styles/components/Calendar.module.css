@@ -1,0 +1,46 @@
+.calendarContainer {
+  width: 100%;
+  background-color: var(--secondary-background);
+  border-radius: 10px;
+  border: solid 1px var(--border-color);
+  padding: var(--spacing-size);
+}
+
+.calendarTable {
+  width: 100%;
+  font-size: 1.25rem;
+}
+
+.calendarTable caption {
+  margin-bottom: 1rem;
+  font-weight: bold;
+  color: var(--primary-text);
+}
+
+.calendarTable th {
+  color: #949393;
+  font-weight: 300;
+  padding-bottom: 1rem;
+}
+
+.calendarTable td {
+  text-align: center;
+  color: var(--primary-text);
+  font-weight: bold;
+  padding-bottom: 1rem;
+}
+
+td.highlightedDate {
+  color: var(--warning-button-bg);
+}
+
+.changeMonthButton {
+  background-color: transparent;
+  border: none;
+  font-family: inherit;
+
+  font-size: 1.25rem;
+  color: var(--primary-text);
+  font-weight: bold;
+  margin: 0 1rem;
+}
