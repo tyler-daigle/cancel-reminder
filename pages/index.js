@@ -35,7 +35,7 @@ export default function Index() {
 
   const [dialogOpen, setDialogOpen] = useState(false);
   const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
-  const [addItemDialogOpen, setAddItemDialogOpen] = useState(true);
+  const [addItemDialogOpen, setAddItemDialogOpen] = useState(false);
 
   const sortByOptions = ["Name", "Days Left"];
 
