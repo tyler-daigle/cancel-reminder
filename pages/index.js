@@ -32,10 +32,17 @@ export default function Index() {
   const [user, setUser] = useUser();
   const [subs, setSubs] = useSubs();
 
-  const [listOneCollapsed, setListOneCollapsed] = useState(false);
-  const [listTwoCollapsed, setListTwoCollapsed] = useState(false);
-  const [monthlyTotalCollapsed, setMonthlyTotalCollapsed] = useState(false);
-  const [calendarCollapsed, setCalendarCollapsed] = useState(false);
+  // visibility flags for the collapsing containers
+  const expiringSoonListCollapsed = useStore(state => state.expiringSoonListCollapsed);
+  const yourItemsListCollapsed = useStore(state => state.yourItemsListCollapsed);
+  const calendarViewCollapsed = useStore(state => state.calendarViewCollapsed);
+  const monthlyTotalViewCollapsed = useStore(state => state.monthlyTotalViewCollapsed);
+
+  // toggles for the collapsing container
+  const toggleExpiringSoonList = useStore(state => state.toggleExpiringSoonList);
+  const toggleYourItemsList = useStore(state => state.toggleYourItemsList);
+  const toggleCalendarView = useStore(state => state.toggleCalendarView);
+  const toggleMonthlyView = useStore(state => state.toggleMonthlyView);
 
   const [sortBy, setSortBy] = useState("");
 
@@ -72,23 +79,28 @@ export default function Index() {
         <AddItemDialog open={addItemDialogOpen} onCancel={() => setAddItemDialogOpen(false)} />
         <h1>{username}'s Cancel Reminder</h1>
 
+        {/* Expiring Soon List */}
         <Container>
-          <CollapsingContainerHeader collapsed={listOneCollapsed} onClick={() => setListOneCollapsed(!listOneCollapsed)}>
+          <CollapsingContainerHeader
+            collapsed={expiringSoonListCollapsed}
+            onClick={toggleExpiringSoonList}>
             Expiring Soon
           </CollapsingContainerHeader>
 
-          <CollapsingContainer collapsed={listOneCollapsed}>
+          <CollapsingContainer collapsed={expiringSoonListCollapsed}>
             <SubscriptionList subscriptions={subs.slice(0, 2)} />
           </CollapsingContainer>
         </Container>
 
-
+        {/* Your Items container */}
         <Container>
           <ItemListToolbar>
-            <CollapsingContainerHeader collapsed={listTwoCollapsed} onClick={() => setListTwoCollapsed(!listTwoCollapsed)}>
+            <CollapsingContainerHeader
+              collapsed={yourItemsListCollapsed}
+              onClick={toggleYourItemsList}>
               Your Items
             </CollapsingContainerHeader>
-            {!listTwoCollapsed &&
+            {!yourItemsListCollapsed &&
               <>
                 <ItemCount count={subs.length} />
                 <DropDownSelector selectedOption={sortBy} selectId="sortBy" labelText="Sort By" options={sortByOptions} onChange={(e) => setSortBy(e.target.value)} />
@@ -96,27 +108,33 @@ export default function Index() {
             }
           </ItemListToolbar>
 
-          <CollapsingContainer collapsed={listTwoCollapsed}>
+          <CollapsingContainer collapsed={yourItemsListCollapsed}>
             <SubscriptionList subscriptions={subs} />
             <AddItemButton onClick={() => setAddItemDialogOpen(true)} />
           </CollapsingContainer>
         </Container>
 
+        {/* Calendar Container */}
         <Container>
-          <CollapsingContainerHeader collapsed={calendarCollapsed} onClick={() => setCalendarCollapsed(!calendarCollapsed)}>
+          <CollapsingContainerHeader
+            collapsed={calendarViewCollapsed}
+            onClick={toggleCalendarView}>
             Calendar View
           </CollapsingContainerHeader>
-          <CollapsingContainer collapsed={calendarCollapsed}>
-
+          <CollapsingContainer collapsed={calendarViewCollapsed}>
             <Calendar month={currentMonth} year={2022} monthInc={incMonth} monthDec={decMonth} />
           </CollapsingContainer>
         </Container>
 
+        {/* Monthly Total */}
+
         <Container>
-          <CollapsingContainerHeader collapsed={monthlyTotalCollapsed} onClick={() => setMonthlyTotalCollapsed(!monthlyTotalCollapsed)}>
+          <CollapsingContainerHeader
+            collapsed={monthlyTotalViewCollapsed}
+            onClick={() => { console.log("click"); toggleMonthlyView(); }}>
             Monthly Total
           </CollapsingContainerHeader>
-          <CollapsingContainer collapsed={monthlyTotalCollapsed}>
+          <CollapsingContainer collapsed={monthlyTotalViewCollapsed}>
             <MonthlyTotal items={subs} />
           </CollapsingContainer>
         </Container>
