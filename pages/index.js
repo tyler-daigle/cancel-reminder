@@ -1,6 +1,6 @@
 import Head from "next/head";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import useStore from "store/store";
 
@@ -27,10 +27,16 @@ import AddItemDialog from "@components/dialogs/AddItemDialog";
 import Calendar from "@components/Calendar";
 
 import { Months } from "utils/calendar";
+import Subscription from "types/Subscription";
+import BillingPeriod from "types/BillingPeriod";
 
 export default function Index() {
   const [user, setUser] = useUser();
-  const [subs, setSubs] = useSubs();
+  // const [subs, setSubs] = useSubs();
+  const subscriptions = useStore(state => state.subscriptions);
+
+  const getSubs = useStore(state => state.getSubs);
+  const addSub = useStore(state => state.addSub);
 
   // visibility flags for the collapsing containers
   const expiringSoonListCollapsed = useStore(state => state.expiringSoonListCollapsed);
@@ -66,6 +72,11 @@ export default function Index() {
     }
   };
 
+
+  useEffect(() => {
+    getSubs();
+  }, []);
+
   return (
     <>
       <Head>
@@ -88,7 +99,7 @@ export default function Index() {
           </CollapsingContainerHeader>
 
           <CollapsingContainer collapsed={expiringSoonListCollapsed}>
-            <SubscriptionList subscriptions={subs.slice(0, 2)} />
+            <SubscriptionList subscriptions={subscriptions.slice(0, 2)} />
           </CollapsingContainer>
         </Container>
 
@@ -102,15 +113,16 @@ export default function Index() {
             </CollapsingContainerHeader>
             {!yourItemsListCollapsed &&
               <>
-                <ItemCount count={subs.length} />
+                <ItemCount count={subscriptions.length} />
                 <DropDownSelector selectedOption={sortBy} selectId="sortBy" labelText="Sort By" options={sortByOptions} onChange={(e) => setSortBy(e.target.value)} />
               </>
             }
           </ItemListToolbar>
 
           <CollapsingContainer collapsed={yourItemsListCollapsed}>
-            <SubscriptionList subscriptions={subs} />
-            <AddItemButton onClick={() => setAddItemDialogOpen(true)} />
+            <SubscriptionList subscriptions={subscriptions} />
+            {/* <AddItemButton onClick={() => setAddItemDialogOpen(true)} /> */}
+            <AddItemButton onClick={() => addSub(new Subscription("Test", BillingPeriod.MONTHLY, 21.99, new Date(), true, ""))} />
           </CollapsingContainer>
         </Container>
 
@@ -135,7 +147,7 @@ export default function Index() {
             Monthly Total
           </CollapsingContainerHeader>
           <CollapsingContainer collapsed={monthlyTotalViewCollapsed}>
-            <MonthlyTotal items={subs} />
+            <MonthlyTotal items={subscriptions} />
           </CollapsingContainer>
         </Container>
 

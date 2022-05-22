@@ -6,6 +6,7 @@ const useStore = create(set => ({
   yourItemsListCollapsed: false,
   calendarViewCollapsed: false,
   monthlyTotalViewCollapsed: false,
+  subscriptions: [],
   setUsername: (name) => set(state => ({ username: name })),
   toggleExpiringSoonList: () => set(
     state => ({ expiringSoonListCollapsed: !state.expiringSoonListCollapsed })
@@ -18,7 +19,16 @@ const useStore = create(set => ({
   ),
   toggleCalendarView: () => set(
     state => ({ calendarViewCollapsed: !state.calendarViewCollapsed })
-  )
+  ),
+
+  getSubs: async (userId) => {
+    const res = await fetch(`http://localhost:3000/api/subscriptions?userId=${userId}`);
+    const data = await res.json();
+    set({ subscriptions: data });
+  },
+
+  addSub: (sub) => set(
+    state => ({ subscriptions: [sub, ...state.subscriptions] })),
 }));
 
 export default useStore;
