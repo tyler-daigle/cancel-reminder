@@ -2,6 +2,8 @@ import Head from "next/head";
 
 import { useState } from "react";
 
+import useStore from "store/store";
+
 // custom hooks
 import useUser from "../hooks/useUser";
 import useSubs from "../hooks/useSubs";
@@ -43,6 +45,8 @@ export default function Index() {
   const [currentMonth, setCurrentMonth] = useState(Months.OCTOBER);
   const sortByOptions = ["Name", "Days Left"];
 
+  const username = useStore(state => state.username);
+
   const incMonth = () => {
     if (currentMonth < 11) {
       setCurrentMonth(currentMonth + 1);
@@ -66,7 +70,7 @@ export default function Index() {
         <ConfirmCancelDialog open={dialogOpen} />
         <ConfirmDeleteDialog open={confirmDeleteDialogOpen} />
         <AddItemDialog open={addItemDialogOpen} onCancel={() => setAddItemDialogOpen(false)} />
-        <h1>Cancel Reminder</h1>
+        <h1>{username}'s Cancel Reminder</h1>
 
         <Container>
           <CollapsingContainerHeader collapsed={listOneCollapsed} onClick={() => setListOneCollapsed(!listOneCollapsed)}>
