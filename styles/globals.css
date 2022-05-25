@@ -27,6 +27,8 @@
   --spacing-size: 1rem;
 
   --select-color: #949393;
+
+  --desktop-breakpoint: 800px;
 }
 
 html,

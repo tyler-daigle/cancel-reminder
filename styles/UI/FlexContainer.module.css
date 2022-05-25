@@ -1,0 +1,10 @@
+.flexContainer {}
+
+@media (min-width: 800px) {
+  .flexContainer {
+
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+  }
+}
