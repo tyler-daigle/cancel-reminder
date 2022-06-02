@@ -1,14 +1,23 @@
-.dialogHeader {
+.title {
   color: var(--primary-text);
 }
 
 .inputLabel {
   display: block;
-  font-size: 0.9rem;
+  font-size: 1rem;
   margin-bottom: 0.5rem;
+  color: var(--secondary-text);
 }
 
-.addItemDialogContainer input {
+.formContainer {
+  background-color: var(--secondary-background);
+  padding: 1rem;
+  border: solid 1px var(--border-color);
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px black;
+}
+
+.formContainer input {
   font-family: inherit;
   font-size: 1.25rem;
   width: 100%;
@@ -18,21 +27,29 @@
   padding: 5px;
 }
 
-.addItemDialogContainer input[type="date"] {
+.formContainer input[type="date"] {
   width: 50%;
 }
 
-.addItemDialogContainer input[type="number"] {
+.formContainer input[type="number"] {
   width: 50%;
+}
+
+.billingPeriodItem {
+  color: var(--secondary-text);
+}
+
+.billingPeriodLegend {
+  color: var(--secondary-text);
 }
 
 /* will have to go when BillingPeriod component is extracted */
-.addItemDialogContainer input[type="radio"] {
+.formContainer input[type="radio"] {
   width: auto;
   margin: 0 2rem 0 0;
 }
 
-.addItemDialogContainer button {
+.formContainer button {
   font-family: inherit;
   padding: 0.5rem 1.5rem;
   font-size: 1rem;
@@ -67,7 +84,7 @@
 
 .billingPeriodFieldSet {
   border-radius: 5px;
-  border: solid 1px #bd93f9;
+  border: solid 1px var(--border-color);
   margin-bottom: 1.5rem;
 }
 

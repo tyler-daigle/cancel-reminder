@@ -1,5 +1,5 @@
 import Head from "next/head";
-import Container from "@components/UI/Container";
+import MainContainer from "@components/UI/MainContainer";
 import SubscriptionForm from "@components/SubscriptionForm";
 
 export default function AddSubscription() {
@@ -8,11 +8,11 @@ export default function AddSubscription() {
       <Head>
         <title>Add A Subscription Service</title>
       </Head>
-
-      <Container>
-        <h2>Add A Subscription</h2>
+      {/* TODO: Remove the MainContainer - the add page doesn't need grid positioning */}
+      <h2>Add A Subscription</h2>
+      <MainContainer>
         <SubscriptionForm />
-      </Container>
+      </MainContainer>
     </>
   );
 }

@@ -1,17 +1,29 @@
 import { useState } from "react";
+import { useRouter } from "next/router";
 
 import styles from "@styles/components/SubscriptionForm.module.css";
 import BillingPeriod from "types/BillingPeriod";
 
 export default function SubscriptionForm() {
-  const submitForm = () => console.log("Form submitted");
+  const router = useRouter();
+
+  const submitForm = (e) => {
+    e.preventDefault();
+    console.log("Form submitted");
+    router.push("/");
+  };
+
+  const cancelForm = () => {
+    router.push("/");
+  };
+
   const [selectedBillingPeriod, setSelectedBillingPeriod] = useState(
     BillingPeriod.MONTHLY
   );
 
   return (
-    <div className={styles.addItemDialogContainer}>
-      <h3 className={styles.dialogHeader}>Add A New Item</h3>
+    <div className={styles.formContainer}>
+      <h3 className={styles.title}>Add A New Subscription</h3>
 
       <form onSubmit={submitForm}>
         <label className={styles.inputLabel} htmlFor="itemName">
@@ -31,7 +43,7 @@ export default function SubscriptionForm() {
 
         {/* TODO: Extract the billing radio buttons as a seperate component */}
         <fieldset className={styles.billingPeriodFieldSet}>
-          <legend>Billing Period</legend>
+          <legend className={styles.billingPeriodLegend}>Billing Period</legend>
           <div className={styles.billingPeriodRadioContainer}>
             <div className={styles.billingPeriodItem}>
               <input
@@ -94,7 +106,11 @@ export default function SubscriptionForm() {
           <button type="submit" className={styles.submitButton}>
             Add Item
           </button>
-          <button type="button" className={styles.cancelButton}>
+          <button
+            type="button"
+            className={styles.cancelButton}
+            onClick={cancelForm}
+          >
             Cancel
           </button>
         </div>
