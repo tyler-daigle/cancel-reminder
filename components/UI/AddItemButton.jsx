@@ -1,7 +1,9 @@
 import styles from "@styles/UI/AddItemButton.module.css";
-
-export default function AddItemButton({ onClick }) {
+import Link from "next/link";
+export default function AddItemButton() {
   return (
-    <button onClick={onClick} type="button" className={styles.addItemButton}>Add Item</button>
+    <Link href="/add_subscription">
+      <a className={styles.addItemButton}>Add Subscription</a>
+    </Link>
   );
 }

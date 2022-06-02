@@ -1,4 +1,5 @@
 import Head from "next/head";
+import Link from "next/link";
 
 import { useState } from "react";
 
@@ -11,8 +12,6 @@ import MainContainer from "@components/UI/MainContainer";
 import AddItemButton from "@components/UI/AddItemButton";
 import CollapsingContainer from "@components/UI/CollapsingContainer";
 import Container from "@components/UI/Container";
-import ConfirmDeleteDialog from "@components/dialogs/ConfirmDeleteDialog";
-import ConfirmCancelDialog from "@components/dialogs/ConfirmCancelDialog";
 import FlexContainer from "@components/UI/FlexContainer";
 
 // Components
@@ -22,7 +21,6 @@ import ItemListToolbar from "@components/ItemListToolbar";
 import ItemCount from "@components/ItemCount";
 import DropDownSelector from "@components/UI/DropDownSelector";
 import MonthlyTotal from "@components/MonthlyTotal";
-import AddItemDialog from "@components/dialogs/AddItemDialog";
 import Calendar from "@components/Calendar";
 
 import { Months } from "utils/calendar";
@@ -38,9 +36,6 @@ export default function Index() {
 
   const [sortBy, setSortBy] = useState("");
 
-  const [dialogOpen, setDialogOpen] = useState(false);
-  const [confirmDeleteDialogOpen, setConfirmDeleteDialogOpen] = useState(false);
-  const [addItemDialogOpen, setAddItemDialogOpen] = useState(false);
   const [currentMonth, setCurrentMonth] = useState(Months.OCTOBER);
   const sortByOptions = ["Name", "Days Left"];
 
@@ -67,13 +62,13 @@ export default function Index() {
       <MainContainer>
         {/* Anything placed in here will throw off the 
          grid settings in Container.module.css and MainContainer.module.css since .mainContainer is set as a grid at the desktop breakpoint */}
-        <ConfirmCancelDialog open={dialogOpen} />
-        <ConfirmDeleteDialog open={confirmDeleteDialogOpen} />
-        <AddItemDialog open={addItemDialogOpen} onCancel={() => setAddItemDialogOpen(false)} />
 
         <FlexContainer>
           <Container>
-            <CollapsingContainerHeader collapsed={listOneCollapsed} onClick={() => setListOneCollapsed(!listOneCollapsed)}>
+            <CollapsingContainerHeader
+              collapsed={listOneCollapsed}
+              onClick={() => setListOneCollapsed(!listOneCollapsed)}
+            >
               Expiring Soon
             </CollapsingContainerHeader>
 
@@ -82,41 +77,58 @@ export default function Index() {
             </CollapsingContainer>
           </Container>
 
-
           <Container>
             <ItemListToolbar>
-              <CollapsingContainerHeader collapsed={listTwoCollapsed} onClick={() => setListTwoCollapsed(!listTwoCollapsed)}>
+              <CollapsingContainerHeader
+                collapsed={listTwoCollapsed}
+                onClick={() => setListTwoCollapsed(!listTwoCollapsed)}
+              >
                 Your Items
               </CollapsingContainerHeader>
-              {!listTwoCollapsed &&
+              {!listTwoCollapsed && (
                 <>
                   <ItemCount count={subs.length} />
-                  <DropDownSelector selectedOption={sortBy} selectId="sortBy" labelText="Sort By" options={sortByOptions} onChange={(e) => setSortBy(e.target.value)} />
+                  <DropDownSelector
+                    selectedOption={sortBy}
+                    selectId="sortBy"
+                    labelText="Sort By"
+                    options={sortByOptions}
+                    onChange={(e) => setSortBy(e.target.value)}
+                  />
                 </>
-              }
-
+              )}
             </ItemListToolbar>
             <CollapsingContainer collapsed={listTwoCollapsed}>
               <SubscriptionList subscriptions={subs} />
-              <AddItemButton onClick={() => setAddItemDialogOpen(true)} />
+              <AddItemButton />
+              {/* <Link href="/add_subscription">Add Subscription</Link> */}
             </CollapsingContainer>
           </Container>
         </FlexContainer>
 
         <FlexContainer>
-
           <Container>
-            <CollapsingContainerHeader collapsed={calendarCollapsed} onClick={() => setCalendarCollapsed(!calendarCollapsed)}>
+            <CollapsingContainerHeader
+              collapsed={calendarCollapsed}
+              onClick={() => setCalendarCollapsed(!calendarCollapsed)}
+            >
               Calendar View
             </CollapsingContainerHeader>
             <CollapsingContainer collapsed={calendarCollapsed}>
-
-              <Calendar month={currentMonth} year={2022} monthInc={incMonth} monthDec={decMonth} />
+              <Calendar
+                month={currentMonth}
+                year={2022}
+                monthInc={incMonth}
+                monthDec={decMonth}
+              />
             </CollapsingContainer>
           </Container>
 
           <Container>
-            <CollapsingContainerHeader collapsed={monthlyTotalCollapsed} onClick={() => setMonthlyTotalCollapsed(!monthlyTotalCollapsed)}>
+            <CollapsingContainerHeader
+              collapsed={monthlyTotalCollapsed}
+              onClick={() => setMonthlyTotalCollapsed(!monthlyTotalCollapsed)}
+            >
               Monthly Total
             </CollapsingContainerHeader>
             <CollapsingContainer collapsed={monthlyTotalCollapsed}>
@@ -124,8 +136,6 @@ export default function Index() {
             </CollapsingContainer>
           </Container>
         </FlexContainer>
-
-
       </MainContainer>
     </>
   );

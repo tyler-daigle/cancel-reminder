@@ -4,9 +4,11 @@ export default function useSubs() {
   const [subs, setSubs] = useState([]);
 
   useEffect(() => {
-
+    console.log("useSubs() running");
     (async () => {
-      const res = await fetch("http://localhost:3000/api/subscriptions?userId=1");
+      const res = await fetch(
+        "http://localhost:3000/api/subscriptions?userId=1"
+      );
       const data = await res.json();
       setSubs(data);
     })();
