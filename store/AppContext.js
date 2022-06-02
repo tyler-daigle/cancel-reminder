@@ -6,6 +6,7 @@ const ACTIONS = {
   CHANGE_NAME: "CHANGE_NAME",
   SET_SUBS: "SET_SUBS",
   SET_ERROR: "SET_ERROR",
+  ADD_SUB: "ADD_SUB",
 };
 
 function reducer(state, action) {
@@ -14,6 +15,11 @@ function reducer(state, action) {
       return { ...state, name: action.payload };
     case ACTIONS.SET_SUBS:
       return { ...state, subscriptions: action.payload };
+    case ACTIONS.ADD_SUB:
+      return {
+        ...state,
+        subscriptions: [...state.subscriptions, action.payload],
+      };
     case ACTIONS.SET_ERROR:
       return { ...state, error: action.payload };
 
@@ -27,6 +33,12 @@ const initialState = { name: "", subscriptions: [], error: null };
 export default function AppContextProvider({ children }) {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const addSubscription = (subscription) => {
+    // TODO: some error checking here?
+    dispatch({ type: ACTIONS.ADD_SUB, payload: subscription });
+  };
+
+  // Load the subscriptions from the server on the first load
   useEffect(() => {
     const loadSubs = async () => {
       try {
@@ -49,6 +61,7 @@ export default function AppContextProvider({ children }) {
     <AppContext.Provider
       value={{
         subscriptions: state.subscriptions,
+        addSubscription,
       }}
     >
       {children}

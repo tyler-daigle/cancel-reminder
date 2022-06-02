@@ -55,6 +55,7 @@ export default function Index() {
 
   const { subscriptions } = useContext(AppContext);
   const subs = subscriptions; // TODO: rename subs to subscriptions referenced in the components below
+
   return (
     <>
       <Head>

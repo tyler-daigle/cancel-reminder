@@ -1,15 +1,29 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { useRouter } from "next/router";
+import { AppContext } from "store/AppContext";
 
 import styles from "@styles/components/SubscriptionForm.module.css";
 import BillingPeriod from "types/BillingPeriod";
+import Subscription from "../types/Subscription";
 
 export default function SubscriptionForm() {
   const router = useRouter();
+  const { addSubscription } = useContext(AppContext);
 
   const submitForm = (e) => {
+    const testSub = new Subscription(
+      "XBox Live",
+      BillingPeriod.MONTHLY,
+      14.99,
+      new Date(),
+      true,
+      "default.png"
+    );
+
+    addSubscription(testSub);
     e.preventDefault();
     console.log("Form submitted");
+
     router.push("/");
   };
 
