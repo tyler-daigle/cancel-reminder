@@ -3,6 +3,9 @@ import Link from "next/link";
 
 import { useState } from "react";
 
+import { useContext } from "react";
+import { AppContext } from "store/AppContext";
+
 // custom hooks
 import useUser from "../hooks/useUser";
 import useSubs from "../hooks/useSubs";
@@ -27,7 +30,6 @@ import { Months } from "utils/calendar";
 
 export default function Index() {
   const [user, setUser] = useUser();
-  const [subs, setSubs] = useSubs();
 
   const [listOneCollapsed, setListOneCollapsed] = useState(false);
   const [listTwoCollapsed, setListTwoCollapsed] = useState(false);
@@ -51,6 +53,8 @@ export default function Index() {
     }
   };
 
+  const { subscriptions } = useContext(AppContext);
+  const subs = subscriptions; // TODO: rename subs to subscriptions referenced in the components below
   return (
     <>
       <Head>
