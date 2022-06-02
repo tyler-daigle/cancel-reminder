@@ -33,22 +33,32 @@ import BillingPeriod from "types/BillingPeriod";
 export default function Index() {
   const [user, setUser] = useUser();
   // const [subs, setSubs] = useSubs();
-  const subscriptions = useStore(state => state.subscriptions);
+  const subscriptions = useStore((state) => state.subscriptions);
 
-  const getSubs = useStore(state => state.getSubs);
-  const addSub = useStore(state => state.addSub);
+  const getSubs = useStore((state) => state.getSubs);
+  const addSub = useStore((state) => state.addSub);
 
   // visibility flags for the collapsing containers
-  const expiringSoonListCollapsed = useStore(state => state.expiringSoonListCollapsed);
-  const yourItemsListCollapsed = useStore(state => state.yourItemsListCollapsed);
-  const calendarViewCollapsed = useStore(state => state.calendarViewCollapsed);
-  const monthlyTotalViewCollapsed = useStore(state => state.monthlyTotalViewCollapsed);
+  const expiringSoonListCollapsed = useStore(
+    (state) => state.expiringSoonListCollapsed
+  );
+  const yourItemsListCollapsed = useStore(
+    (state) => state.yourItemsListCollapsed
+  );
+  const calendarViewCollapsed = useStore(
+    (state) => state.calendarViewCollapsed
+  );
+  const monthlyTotalViewCollapsed = useStore(
+    (state) => state.monthlyTotalViewCollapsed
+  );
 
   // toggles for the collapsing container
-  const toggleExpiringSoonList = useStore(state => state.toggleExpiringSoonList);
-  const toggleYourItemsList = useStore(state => state.toggleYourItemsList);
-  const toggleCalendarView = useStore(state => state.toggleCalendarView);
-  const toggleMonthlyView = useStore(state => state.toggleMonthlyView);
+  const toggleExpiringSoonList = useStore(
+    (state) => state.toggleExpiringSoonList
+  );
+  const toggleYourItemsList = useStore((state) => state.toggleYourItemsList);
+  const toggleCalendarView = useStore((state) => state.toggleCalendarView);
+  const toggleMonthlyView = useStore((state) => state.toggleMonthlyView);
 
   const [sortBy, setSortBy] = useState("");
 
@@ -58,7 +68,7 @@ export default function Index() {
   const [currentMonth, setCurrentMonth] = useState(Months.OCTOBER);
   const sortByOptions = ["Name", "Days Left"];
 
-  const username = useStore(state => state.username);
+  const username = useStore((state) => state.username);
 
   const incMonth = () => {
     if (currentMonth < 11) {
@@ -72,7 +82,6 @@ export default function Index() {
     }
   };
 
-
   useEffect(() => {
     getSubs();
   }, []);
@@ -84,17 +93,20 @@ export default function Index() {
       </Head>
 
       <MainContainer>
-
         <ConfirmCancelDialog open={dialogOpen} />
         <ConfirmDeleteDialog open={confirmDeleteDialogOpen} />
-        <AddItemDialog open={addItemDialogOpen} onCancel={() => setAddItemDialogOpen(false)} />
+        <AddItemDialog
+          open={addItemDialogOpen}
+          onCancel={() => setAddItemDialogOpen(false)}
+        />
         <h1>{username}'s Cancel Reminder</h1>
 
         {/* Expiring Soon List */}
         <Container>
           <CollapsingContainerHeader
             collapsed={expiringSoonListCollapsed}
-            onClick={toggleExpiringSoonList}>
+            onClick={toggleExpiringSoonList}
+          >
             Expiring Soon
           </CollapsingContainerHeader>
 
@@ -108,21 +120,28 @@ export default function Index() {
           <ItemListToolbar>
             <CollapsingContainerHeader
               collapsed={yourItemsListCollapsed}
-              onClick={toggleYourItemsList}>
+              onClick={toggleYourItemsList}
+            >
               Your Items
             </CollapsingContainerHeader>
-            {!yourItemsListCollapsed &&
+            {!yourItemsListCollapsed && (
               <>
                 <ItemCount count={subscriptions.length} />
-                <DropDownSelector selectedOption={sortBy} selectId="sortBy" labelText="Sort By" options={sortByOptions} onChange={(e) => setSortBy(e.target.value)} />
+                <DropDownSelector
+                  selectedOption={sortBy}
+                  selectId="sortBy"
+                  labelText="Sort By"
+                  options={sortByOptions}
+                  onChange={(e) => setSortBy(e.target.value)}
+                />
               </>
-            }
+            )}
           </ItemListToolbar>
 
           <CollapsingContainer collapsed={yourItemsListCollapsed}>
             <SubscriptionList subscriptions={subscriptions} />
             {/* <AddItemButton onClick={() => setAddItemDialogOpen(true)} /> */}
-            <AddItemButton onClick={() => addSub(new Subscription("Test", BillingPeriod.MONTHLY, 21.99, new Date(), true, ""))} />
+            <AddItemButton onClick={() => setAddItemDialogOpen(true)} />
           </CollapsingContainer>
         </Container>
 
@@ -130,11 +149,17 @@ export default function Index() {
         <Container>
           <CollapsingContainerHeader
             collapsed={calendarViewCollapsed}
-            onClick={toggleCalendarView}>
+            onClick={toggleCalendarView}
+          >
             Calendar View
           </CollapsingContainerHeader>
           <CollapsingContainer collapsed={calendarViewCollapsed}>
-            <Calendar month={currentMonth} year={2022} monthInc={incMonth} monthDec={decMonth} />
+            <Calendar
+              month={currentMonth}
+              year={2022}
+              monthInc={incMonth}
+              monthDec={decMonth}
+            />
           </CollapsingContainer>
         </Container>
 
@@ -143,15 +168,17 @@ export default function Index() {
         <Container>
           <CollapsingContainerHeader
             collapsed={monthlyTotalViewCollapsed}
-            onClick={() => { console.log("click"); toggleMonthlyView(); }}>
+            onClick={() => {
+              console.log("click");
+              toggleMonthlyView();
+            }}
+          >
             Monthly Total
           </CollapsingContainerHeader>
           <CollapsingContainer collapsed={monthlyTotalViewCollapsed}>
             <MonthlyTotal items={subscriptions} />
           </CollapsingContainer>
         </Container>
-
-
       </MainContainer>
     </>
   );
