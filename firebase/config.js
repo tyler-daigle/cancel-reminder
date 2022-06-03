@@ -1,9 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
+import { getFirestore, collection, getDocs } from "firebase/firestore";
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyCskGz899e_SWKffSvrnnZSXdywUYcbKqU",
   authDomain: "cancel-reminder.firebaseapp.com",
@@ -15,3 +13,11 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
+
+export async function getUserSubs(userId) {
+  const subsCollection = collection(db, "subscriptions");
+  const subsSnapshot = await getDocs(subsCollection);
+  const subList = subsSnapshot.docs.map((doc) => doc.data());
+  return subList;
+}
