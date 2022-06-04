@@ -1,16 +1,28 @@
 import styles from "@styles/components/SubscriptionListItem.module.css";
+import { calcDaysTillRenew } from "../utils/calcdate";
 
 import CancelButton from "@components/UI/CancelButton";
 import EditButton from "@components/UI/EditButton";
 
 export default function SubscriptionListItem({ subscriptionItem }) {
-  const { name, billingPeriod, price, startDate, isActive, logo } = subscriptionItem;
-  const { daysLeftString, expirationDate } = numberDaysTillExpire(startDate);
+  const { name, billingPeriod, price, startDate, isActive, logo } =
+    subscriptionItem;
+
+  // TODO: have to make sure startDate is actually a Date Object - when
+  // it comes out of firestore it is just a string.
+  const { daysLeftString, expirationDate } = numberDaysTillExpire(
+    new Date(startDate)
+  );
 
   return (
     <li className={styles.subscriptionListItem}>
       <EditButton />
-      <img className={styles.subscriptionLogo} width="75" height="60" src={`/logos/${logo}`} />
+      <img
+        className={styles.subscriptionLogo}
+        width="75"
+        height="60"
+        src={`/logos/${logo}`}
+      />
       <span className={styles.subscriptionName}>{name}</span>
       <span className={styles.numberDaysLeft}>{daysLeftString}</span>
       <span className={styles.expirationDate}>{expirationDate}</span>
@@ -19,6 +31,8 @@ export default function SubscriptionListItem({ subscriptionItem }) {
   );
 }
 
-function numberDaysTillExpire(date) {
-  return { daysLeftString: "10 Days", expirationDate: "7/21/22" };
+function numberDaysTillExpire(startDate) {
+  const todaysDate = new Date();
+  const daysLeft = calcDaysTillRenew(startDate, todaysDate);
+  return { daysLeftString: `${daysLeft} Days`, expirationDate: "7/21/22" };
 }
