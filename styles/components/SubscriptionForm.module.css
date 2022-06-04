@@ -2,6 +2,12 @@
   color: var(--primary-text);
 }
 
+.demoMessage {
+  color: var(--bright-yellow);
+  font-weight: bold;
+  text-align: center;
+  font-size: 1.5rem;
+}
 .inputLabel {
   display: block;
   font-size: 1rem;

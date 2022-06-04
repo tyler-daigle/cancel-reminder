@@ -21,7 +21,7 @@ export default function SubscriptionForm() {
     );
 
     // on submit the price has to be converted to cents
-    addSubscription(testSub);
+    //addSubscription(testSub);
     e.preventDefault();
     console.log("Form submitted");
 
@@ -40,6 +40,9 @@ export default function SubscriptionForm() {
     <div className={styles.formContainer}>
       <h3 className={styles.title}>Add A New Subscription</h3>
 
+      <p className={styles.demoMessage}>
+        This is just a demo, adding a new item will not work.
+      </p>
       <form onSubmit={submitForm}>
         <label className={styles.inputLabel} htmlFor="itemName">
           Item Name:

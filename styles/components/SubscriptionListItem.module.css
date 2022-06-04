@@ -11,10 +11,11 @@
   align-items: center;
 }
 
-
 .subscriptionLogo {
-  width: auto;
-  height: 50px;
+  width: 70px;
+  height: auto;
+  border-radius: 500px;
+  padding: 10px;
 }
 
 .subscriptionName {
