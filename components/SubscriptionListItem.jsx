@@ -32,7 +32,11 @@ export default function SubscriptionListItem({ subscriptionItem }) {
 }
 
 function numberDaysTillExpire(startDate) {
+  const ending = (num) => (num === 1 ? "" : "s");
   const todaysDate = new Date();
   const daysLeft = calcDaysTillRenew(startDate, todaysDate);
-  return { daysLeftString: `${daysLeft} Days`, expirationDate: "7/21/22" };
+  return {
+    daysLeftString: `${daysLeft} Day${ending(daysLeft)}`,
+    expirationDate: "7/21/22",
+  };
 }
