@@ -15,7 +15,7 @@ export default function SubscriptionListItem({ subscriptionItem }) {
         className={styles.subscriptionLogo}
         width="75"
         height="60"
-        src={`/logos/${logo}`}
+        src={`${logo}`}
       />
       <span className={styles.subscriptionName}>{name}</span>
       <span className={styles.numberDaysLeft}>{daysLeftString}</span>

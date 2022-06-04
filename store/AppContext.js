@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect } from "react";
 import { getUserSubs } from "../firebase/config";
+import { loadDemoData } from "./loadDemoData";
 
 export const AppContext = createContext();
 
@@ -47,14 +48,8 @@ export default function AppContextProvider({ children }) {
 
     const loadSubs = async () => {
       try {
-        // const res = await fetch("http://localhost:3000/api/subscriptions");
-        // if (!res.ok) {
-        //   throw new Error(res.statusText);
-        // } else {
-        //   const data = await res.json();
-        //   dispatch({ type: ACTIONS.SET_SUBS, payload: data });
-        // }
-        const subList = await getUserSubs(100);
+        // const subList = await getUserSubs(100);
+        const subList = loadDemoData();
         dispatch({ type: ACTIONS.SET_SUBS, payload: subList });
       } catch (err) {
         dispatch({ type: ACTIONS.SET_ERROR, payload: "Error loading data." });

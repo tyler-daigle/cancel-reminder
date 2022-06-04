@@ -18,5 +18,5 @@ export default function MonthlyTotal({ items }) {
 
 function totalItems(items) {
   const total = items.reduce((total, item) => total + item.price, 0);
-  return (total / 100).toFixed(2);
+  return (total / 100).toFixed(2); // convert the cents to dollars for displaying
 }
