@@ -1,4 +1,5 @@
 import styles from "@styles/components/SubscriptionListItem.module.css";
+import { calcDaysTillRenew } from "../utils/calcdate";
 
 import CancelButton from "@components/UI/CancelButton";
 import EditButton from "@components/UI/EditButton";
@@ -6,7 +7,12 @@ import EditButton from "@components/UI/EditButton";
 export default function SubscriptionListItem({ subscriptionItem }) {
   const { name, billingPeriod, price, startDate, isActive, logo } =
     subscriptionItem;
-  const { daysLeftString, expirationDate } = numberDaysTillExpire(startDate);
+
+  // TODO: have to make sure startDate is actually a Date Object - when
+  // it comes out of firestore it is just a string.
+  const { daysLeftString, expirationDate } = numberDaysTillExpire(
+    new Date(startDate)
+  );
 
   return (
     <li className={styles.subscriptionListItem}>
@@ -25,7 +31,12 @@ export default function SubscriptionListItem({ subscriptionItem }) {
   );
 }
 
-function numberDaysTillExpire(date) {
-  // TODO: calculate the actual number of days till renewal.
-  return { daysLeftString: "10 Days", expirationDate: "7/21/22" };
+function numberDaysTillExpire(startDate) {
+  const ending = (num) => (num === 1 ? "" : "s");
+  const todaysDate = new Date();
+  const daysLeft = calcDaysTillRenew(startDate, todaysDate);
+  return {
+    daysLeftString: `${daysLeft} Day${ending(daysLeft)}`,
+    expirationDate: "7/21/22",
+  };
 }
