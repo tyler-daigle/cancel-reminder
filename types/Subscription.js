@@ -14,7 +14,10 @@ export default class Subscription {
     checkForValidBillingPeriod(billingPeriod);
 
     // make sure a Date object was used
-    if (typeof startDate !== "object" || typeof startDate.getDay === "undefined") {
+    if (
+      typeof startDate !== "object" ||
+      typeof startDate.getDay === "undefined"
+    ) {
       throw new Error("startDate is not a Date Object.");
     }
 
@@ -28,10 +31,9 @@ export default class Subscription {
       throw new Error("A name for the subscription must be providedd");
     }
 
-
     this.name = name;
     this.billingPeriod = billingPeriod;
-    this.price = price;
+    this.price = price; // price should be stored as cents
     this.startDate = startDate;
     this.isActive = typeof isActive === "boolean" ? isActive : false;
     this.logo = logo;

@@ -14,12 +14,13 @@ export default function SubscriptionForm() {
     const testSub = new Subscription(
       "XBox Live",
       BillingPeriod.MONTHLY,
-      14.99,
+      1499,
       new Date(),
       true,
       "default.png"
     );
 
+    // on submit the price has to be converted to cents
     addSubscription(testSub);
     e.preventDefault();
     console.log("Form submitted");

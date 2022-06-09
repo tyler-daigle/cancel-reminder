@@ -1,4 +1,5 @@
 import { createContext, useReducer, useEffect } from "react";
+import { getUserSubs } from "../firebase/config";
 
 export const AppContext = createContext();
 
@@ -8,6 +9,8 @@ const ACTIONS = {
   SET_ERROR: "SET_ERROR",
   ADD_SUB: "ADD_SUB",
 };
+
+// TODO: move reducer to separate file
 
 function reducer(state, action) {
   switch (action.type) {
@@ -40,15 +43,19 @@ export default function AppContextProvider({ children }) {
 
   // Load the subscriptions from the server on the first load
   useEffect(() => {
+    // getUserSubs(100).then((subList) => console.log(subList));
+
     const loadSubs = async () => {
       try {
-        const res = await fetch("http://localhost:3000/api/subscriptions");
-        if (!res.ok) {
-          throw new Error(res.statusText);
-        } else {
-          const data = await res.json();
-          dispatch({ type: ACTIONS.SET_SUBS, payload: data });
-        }
+        // const res = await fetch("http://localhost:3000/api/subscriptions");
+        // if (!res.ok) {
+        //   throw new Error(res.statusText);
+        // } else {
+        //   const data = await res.json();
+        //   dispatch({ type: ACTIONS.SET_SUBS, payload: data });
+        // }
+        const subList = await getUserSubs(100);
+        dispatch({ type: ACTIONS.SET_SUBS, payload: subList });
       } catch (err) {
         dispatch({ type: ACTIONS.SET_ERROR, payload: "Error loading data." });
         console.log(err.message);
