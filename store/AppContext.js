@@ -31,9 +31,7 @@ function reducer(state, action) {
       return { ...state, error: action.payload };
 
     case ACTIONS.LOGIN_USER:
-      return { ...state };
-
-    case ACTIONS.LOGIN_USER:
+      console.log("ACTION: LOGIN_USER");
       return { ...state, user: action.payload };
     default:
       return state;
@@ -83,6 +81,7 @@ export default function AppContextProvider({ children }) {
         addSubscription,
         error: state.error,
         user: state.user,
+        dispatch,
       }}
     >
       {children}

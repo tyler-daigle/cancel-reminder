@@ -3,11 +3,11 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { AppContext, ACTIONS } from "../store/AppContext";
 
-export default function useAuth() {
-  const [isPending, setIsPending] = useState(true);
+export default function useSignup() {
+  const [isPending, setIsPending] = useState(false);
   const [error, setError] = useState(null);
   const { dispatch } = useContext(AppContext);
 
@@ -17,6 +17,7 @@ export default function useAuth() {
 
   const signupUser = async (email, password) => {
     try {
+      setIsPending(true);
       const res = await createUserWithEmailAndPassword(auth, email, password);
       const user = res.user;
       dispatch({ type: ACTIONS.LOGIN_USER, payload: user });

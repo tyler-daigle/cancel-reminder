@@ -2,6 +2,7 @@
 .signupContainer h2 {
   text-align: center;
 }
+
 .title {
   color: var(--primary-text);
   margin-bottom: 2rem;
@@ -50,4 +51,16 @@
 
   margin: auto;
   display: block;
+}
+
+.error {
+  color: var(--warning-button-fg);
+  background-color: rgba(255, 85, 85, 0.3);
+  border-radius: 5px;
+  /* font-weight: bold; */
+  text-align: center;
+  margin-top: 2rem;
+  width: 100%;
+  border: dashed 3px var(--warning-button-border);
+  padding: 2rem;
 }
