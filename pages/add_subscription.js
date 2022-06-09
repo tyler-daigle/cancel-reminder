@@ -8,7 +8,7 @@ export default function AddSubscription() {
       <Head>
         <title>Add A Subscription Service</title>
       </Head>
-      {/* TODO: Remove the MainContainer - the add page doesn't need grid positioning */}
+
       <CenterContainer>
         <SubscriptionForm />
       </CenterContainer>
