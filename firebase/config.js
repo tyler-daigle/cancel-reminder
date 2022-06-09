@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getAuth } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyCskGz899e_SWKffSvrnnZSXdywUYcbKqU",
@@ -13,10 +14,12 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+export const database = getFirestore(app);
+export const auth = getAuth(app);
 
+// move getUserSubs() to custom hook?
 export async function getUserSubs(userId) {
-  const subsCollection = collection(db, "subscriptions");
+  const subsCollection = collection(database, "subscriptions");
   const subsSnapshot = await getDocs(subsCollection);
   const subList = subsSnapshot.docs.map((doc) => doc.data());
   return subList;

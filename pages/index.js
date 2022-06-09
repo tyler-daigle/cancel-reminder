@@ -7,8 +7,6 @@ import { useContext } from "react";
 import { AppContext } from "store/AppContext";
 
 // custom hooks
-import useUser from "../hooks/useUser";
-import useSubs from "../hooks/useSubs";
 
 // UI
 import MainContainer from "@components/UI/MainContainer";
@@ -29,8 +27,6 @@ import Calendar from "@components/Calendar";
 import { Months } from "utils/calendar";
 
 export default function Index() {
-  const [user, setUser] = useUser();
-
   const [listOneCollapsed, setListOneCollapsed] = useState(false);
   const [listTwoCollapsed, setListTwoCollapsed] = useState(false);
   const [monthlyTotalCollapsed, setMonthlyTotalCollapsed] = useState(false);
