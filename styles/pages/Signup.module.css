@@ -1,3 +1,7 @@
+.signupContainer h1,
+.signupContainer h2 {
+  text-align: center;
+}
 .title {
   color: var(--primary-text);
   margin-bottom: 2rem;
@@ -16,7 +20,12 @@
   border: solid 1px var(--border-color);
   border-radius: 10px;
   box-shadow: 4px 4px 8px black;
-  max-width: 80%;
+  /* max-width: 700px; */
+  /* min-width: 800px; */
+  width: 50%;
+  /* min-width: 300px; */
+  max-width: 500px;
+  min-width: 300px;
 }
 
 .signupContainer input {

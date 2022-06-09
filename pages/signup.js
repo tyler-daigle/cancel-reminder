@@ -12,14 +12,18 @@ export default function SignUp() {
 
   const submitForm = (e) => {
     e.preventDefault();
+    // make sure passwords match
+    // bring in useSignup hook
+    // redirect to the main page after logging in
     console.log(email, password);
   };
 
   return (
-    <MainContainer>
+    <>
       <CenterContainer>
         <div className={styles.signupContainer}>
-          <h1 className={styles.title}>Sign Up For An Account</h1>
+          <h1 className={styles.crLogo}>Cancel Reminder</h1>
+          <h2 className={styles.title}>Sign Up For An Account</h2>
           <form onSubmit={submitForm}>
             <label htmlFor="email">Email Address</label>
             <input
@@ -49,6 +53,6 @@ export default function SignUp() {
           </form>
         </div>
       </CenterContainer>
-    </MainContainer>
+    </>
   );
 }
