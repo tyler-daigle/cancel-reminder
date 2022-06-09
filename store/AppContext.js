@@ -3,11 +3,12 @@ import { getUserSubs } from "../firebase/config";
 
 export const AppContext = createContext();
 
-const ACTIONS = {
+export const ACTIONS = {
   CHANGE_NAME: "CHANGE_NAME",
   SET_SUBS: "SET_SUBS",
   SET_ERROR: "SET_ERROR",
   ADD_SUB: "ADD_SUB",
+  LOGIN_USER: "LOGIN_USER",
 };
 
 // TODO: move reducer to separate file
@@ -16,24 +17,32 @@ function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.CHANGE_NAME:
       return { ...state, name: action.payload };
+
     case ACTIONS.SET_SUBS:
       return { ...state, subscriptions: action.payload };
+
     case ACTIONS.ADD_SUB:
       return {
         ...state,
         subscriptions: [...state.subscriptions, action.payload],
       };
+
     case ACTIONS.SET_ERROR:
       return { ...state, error: action.payload };
 
+    case ACTIONS.LOGIN_USER:
+      return { ...state };
+
+    case ACTIONS.LOGIN_USER:
+      return { ...state, user: action.payload };
     default:
       return state;
   }
 }
 
-const initialState = { name: "", subscriptions: [], error: null };
-
 export default function AppContextProvider({ children }) {
+  const initialState = { name: "", subscriptions: [], error: null, user: null };
+
   const [state, dispatch] = useReducer(reducer, initialState);
 
   const addSubscription = (subscription) => {
@@ -54,6 +63,9 @@ export default function AppContextProvider({ children }) {
         //   const data = await res.json();
         //   dispatch({ type: ACTIONS.SET_SUBS, payload: data });
         // }
+
+        // TODO: this is when the context first is mounted - check if user is logged in
+        // then check for subs. Setup event listener for when data is added to firestore.
         const subList = await getUserSubs(100);
         dispatch({ type: ACTIONS.SET_SUBS, payload: subList });
       } catch (err) {
@@ -69,6 +81,8 @@ export default function AppContextProvider({ children }) {
       value={{
         subscriptions: state.subscriptions,
         addSubscription,
+        error: state.error,
+        user: state.user,
       }}
     >
       {children}
