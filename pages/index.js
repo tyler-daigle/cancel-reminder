@@ -23,6 +23,7 @@ import ItemCount from "@components/ItemCount";
 import DropDownSelector from "@components/UI/DropDownSelector";
 import MonthlyTotal from "@components/MonthlyTotal";
 import Calendar from "@components/Calendar";
+import TitleBar from "@components/TitleBar";
 
 import { Months } from "utils/calendar";
 
@@ -58,8 +59,7 @@ export default function Index() {
         <title>Cancel Reminder</title>
       </Head>
 
-      <h1>Cancel Reminder</h1>
-
+      <TitleBar currentTitle={"Cancel Reminder"} />
       <MainContainer>
         {/* Anything placed in here will throw off the 
          grid settings in Container.module.css and MainContainer.module.css since .mainContainer is set as a grid at the desktop breakpoint */}
