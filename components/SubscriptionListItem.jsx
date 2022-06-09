@@ -11,7 +11,7 @@ export default function SubscriptionListItem({ subscriptionItem }) {
   // TODO: have to make sure startDate is actually a Date Object - when
   // it comes out of firestore it is just a string.
   const { daysLeftString, expirationDate } = numberDaysTillExpire(
-    new Date(startDate)
+    new Date(startDate.toDate())
   );
 
   return (
@@ -35,6 +35,7 @@ function numberDaysTillExpire(startDate) {
   const ending = (num) => (num === 1 ? "" : "s");
   const todaysDate = new Date();
   const daysLeft = calcDaysTillRenew(startDate, todaysDate);
+
   return {
     daysLeftString: `${daysLeft} Day${ending(daysLeft)}`,
     expirationDate: "7/21/22",
