@@ -1,4 +1,5 @@
 import styles from "@styles/components/SubscriptionListItem.module.css";
+import Image from "next/image";
 import { calcDaysTillRenew } from "../utils/calcdate";
 
 import CancelButton from "@components/UI/CancelButton";
@@ -17,11 +18,12 @@ export default function SubscriptionListItem({ subscriptionItem }) {
   return (
     <li className={styles.subscriptionListItem}>
       <EditButton />
-      <img
+      <Image
         className={styles.subscriptionLogo}
         width="75"
         height="60"
         src={`/logos/${logo}`}
+        alt="Subscription Service Logo"
       />
       <span className={styles.subscriptionName}>{name}</span>
       <span className={styles.numberDaysLeft}>{daysLeftString}</span>

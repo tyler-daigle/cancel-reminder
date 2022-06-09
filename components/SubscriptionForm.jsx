@@ -111,7 +111,7 @@ export default function SubscriptionForm() {
         </fieldset>
 
         <label className={styles.inputLabel} htmlFor="cancelUrl">
-          Cancellation URL or site's main URL:
+          Cancellation URL or site&pos;s main URL:
         </label>
         <input type="url" id="cancelUrl" />
 

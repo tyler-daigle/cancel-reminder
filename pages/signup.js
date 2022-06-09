@@ -21,7 +21,7 @@ export default function SignUp() {
       console.log(`User updated: ${user.email}`);
       router.push("/");
     }
-  }, [user]);
+  }, [user, router]);
 
   const submitForm = (e) => {
     e.preventDefault();

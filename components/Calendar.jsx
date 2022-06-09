@@ -11,12 +11,21 @@ export default function Calendar({ month, year, monthDec, monthInc }) {
     const cal = new CalendarCreator(year);
     const monthCal = cal.createMonthlyCalendar(month);
     setMonthlyCalendar(monthCal);
-  }, [month]);
+  }, [month, year]);
 
   return (
     <div className={styles.calendarContainer}>
-      {monthlyCalendar ?
-        <MonthlyCalendar month={month} year={year} calendarData={monthlyCalendar} monthDec={monthDec} monthInc={monthInc} /> : <h3>Loading...</h3>}
+      {monthlyCalendar ? (
+        <MonthlyCalendar
+          month={month}
+          year={year}
+          calendarData={monthlyCalendar}
+          monthDec={monthDec}
+          monthInc={monthInc}
+        />
+      ) : (
+        <h3>Loading...</h3>
+      )}
     </div>
   );
 }
@@ -24,9 +33,16 @@ export default function Calendar({ month, year, monthDec, monthInc }) {
 function MonthlyCalendar({ month, year, calendarData, monthInc, monthDec }) {
   return (
     <CalendarContainer>
-      <CalendarHeader month={month} year={year} monthInc={monthInc} monthDec={monthDec} />
+      <CalendarHeader
+        month={month}
+        year={year}
+        monthInc={monthInc}
+        monthDec={monthDec}
+      />
       <CalendarBody>
-        {calendarData.map(d => <Week weekData={d} />)}
+        {calendarData.map((d, weekIndex) => (
+          <Week key={weekIndex} weekData={d} />
+        ))}
       </CalendarBody>
     </CalendarContainer>
   );
@@ -34,22 +50,24 @@ function MonthlyCalendar({ month, year, calendarData, monthInc, monthDec }) {
 
 function Week({ weekData }) {
   // weekData is a 7 element array, each element is the date
-  // for that day of the week - starting from Sunday - 0s are 
+  // for that day of the week - starting from Sunday - 0s are
   // blank spaces on the calendar.
-
+  let blankKey = 1;
   return (
     <tr>
-      {weekData.map(day => day !== 0 ? <td>{day}</td> : <td></td>)}
+      {weekData.map((day) =>
+        day !== 0 ? (
+          <td key={day}>{day}</td>
+        ) : (
+          <td key={`blank${blankKey++}`}></td>
+        )
+      )}
     </tr>
   );
 }
 
 function CalendarContainer({ children }) {
-  return (
-    <table className={styles.calendarTable}>
-      {children}
-    </table>
-  );
+  return <table className={styles.calendarTable}>{children}</table>;
 }
 
 function CalendarBody({ children }) {
@@ -57,7 +75,6 @@ function CalendarBody({ children }) {
 }
 
 function CalendarHeader({ month, year, monthDec, monthInc }) {
-
   if (month < 0 || month > 11) {
     month = 0;
   }
@@ -65,10 +82,13 @@ function CalendarHeader({ month, year, monthDec, monthInc }) {
   return (
     <>
       <caption>
-        <button className={styles.changeMonthButton} onClick={monthDec}>&lt;</button>
+        <button className={styles.changeMonthButton} onClick={monthDec}>
+          &lt;
+        </button>
         {MonthStrings[month]} {year}
-        <button className={styles.changeMonthButton} onClick={monthInc}>&gt;</button>
-
+        <button className={styles.changeMonthButton} onClick={monthInc}>
+          &gt;
+        </button>
       </caption>
       <thead>
         <tr className={styles.weekNames}>
