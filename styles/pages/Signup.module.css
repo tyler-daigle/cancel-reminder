@@ -1,0 +1,44 @@
+.title {
+  color: var(--primary-text);
+  margin-bottom: 2rem;
+}
+
+.signupContainer label {
+  display: block;
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: var(--secondary-text);
+}
+
+.signupContainer {
+  background-color: var(--secondary-background);
+  padding: 2rem;
+  border: solid 1px var(--border-color);
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px black;
+  max-width: 80%;
+}
+
+.signupContainer input {
+  font-family: inherit;
+  font-size: 1.25rem;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  border-radius: 5px;
+  border: none;
+  padding: 10px;
+}
+
+.signupContainer button {
+  font-family: inherit;
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--primary-button-fg);
+  background-color: var(--primary-button-bg);
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem 1.5rem;
+
+  margin: auto;
+  display: block;
+}
