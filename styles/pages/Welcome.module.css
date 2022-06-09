@@ -1,0 +1,71 @@
+.welcomeContainer {
+  /* max-width: 1000px; */
+  min-height: 100vh;
+  box-shadow: 4px 4px 8px black;
+  border-radius: 10px;
+  background-image: url("/images/welcome-bg.jpg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  overflow: hidden;
+  line-height: 2rem;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+  padding: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  min-height: 100vh;
+}
+.overlay * {
+  max-width: 800px;
+}
+.welcomeTitle {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.welcomeList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.welcomeQuestion {
+  color: var(--primary-text);
+  font-size: 1.25rem;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 1rem;
+  padding: 0;
+}
+
+.welcomeQuestion:last-child {
+  margin-bottom: 0;
+}
+
+.welcomeText {
+  background-color: rgba(69, 72, 89, 0.8);
+  color: var(--secondary-text);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 4px 4px 8px black;
+  border: solid 1px var(--border-color);
+  margin: 0;
+}
+
+.welcomeText strong {
+  color: var(--bright-yellow);
+}
+
+.signupLink {
+  color: var(--primary-text);
+  font-weight: bold;
+  font-size: 1.25rem;
+  padding: 0.5rem 3rem;
+  background-color: var(--primary-button-bg);
+  border-radius: 5px;
+}
