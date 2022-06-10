@@ -8,7 +8,6 @@
   background-position: center center;
   background-size: cover;
   overflow: hidden;
-  line-height: 2rem;
 }
 
 .overlay {
@@ -55,6 +54,7 @@
   box-shadow: 4px 4px 8px black;
   border: solid 1px var(--border-color);
   margin: 0;
+  line-height: 2rem;
 }
 
 .welcomeText strong {
