@@ -1,4 +1,3 @@
-import CenterContainer from "@components/UI/CenterContainer";
 import styles from "@styles/pages/Welcome.module.css";
 import Link from "next/link";
 

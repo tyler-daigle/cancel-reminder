@@ -15,7 +15,8 @@
 }
 
 .navList {
-  display: flex;
+  display: none;
+
   list-style-type: none;
   align-items: center;
 }
@@ -35,4 +36,10 @@
   border: solid 1px #aa92cc;
   background-color: var(--primary-button-bg);
   color: var(--primary-bg-color);
+}
+
+@media (min-width: 600px) {
+  .navList {
+    display: flex;
+  }
 }
