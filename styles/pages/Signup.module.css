@@ -49,6 +49,11 @@
   display: block;
 }
 
+.signupContainer button:disabled {
+  background-color: gray;
+  color: lightgray;
+}
+
 .error {
   color: var(--warning-button-fg);
   background-color: rgba(255, 85, 85, 0.3);
@@ -61,5 +66,12 @@
   padding: 2rem;
 }
 
+.signupText {
+  color: var(--primary-text);
+  text-align: center;
+}
+.signupLink {
+  color: var(--secondary-text);
+}
 @media (min-width: 800px) {
 }

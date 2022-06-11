@@ -4,16 +4,15 @@ import CenterContainer from "@components/UI/CenterContainer";
 import { useState, useContext, useEffect } from "react";
 import { AppContext } from "store/AppContext";
 
-import useSignup from "../hooks/useSignup";
+import useLogin from "../hooks/useLogin";
 import { useRouter } from "next/router";
 import Link from "next/link";
 
-export default function SignUp() {
+export default function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [signupError, setSignupError] = useState("");
-  const { signupUser, error, isPending } = useSignup();
+  const [loginError, setLoginError] = useState("");
+  const { loginUser, error, isPending } = useLogin();
   const { user } = useContext(AppContext);
   const router = useRouter();
 
@@ -26,35 +25,21 @@ export default function SignUp() {
 
   const submitForm = (e) => {
     e.preventDefault();
-    // bring in useSignup hook
-    // redirect to the main page after logging in
 
-    if (
-      email.length === 0 ||
-      password.length === 0 ||
-      confirmPassword.length === 0
-    ) {
-      setSignupError("All fields must be filled in");
+    if (email.length === 0 || password.length === 0) {
+      setLoginError("All fields must be filled in");
       return;
     }
 
-    // make sure passwords match
-    if (password !== confirmPassword) {
-      setSignupError("Passwords must match.");
-      return;
-    }
-
-    setSignupError(null);
-    signupUser(email, password);
-
-    console.log(email, password);
+    setLoginError(null);
+    loginUser(email, password);
   };
 
   return (
     <CenterContainer>
       <div className={styles.signupContainer}>
         <h1 className={styles.crLogo}>Cancel Reminder</h1>
-        <h2 className={styles.title}>Sign Up For An Account</h2>
+        <h2 className={styles.title}>Login To Your Account</h2>
         <form onSubmit={submitForm}>
           <label htmlFor="email">Email Address</label>
           <input
@@ -64,7 +49,7 @@ export default function SignUp() {
             onChange={(e) => setEmail(e.target.value)}
           />
 
-          <label htmlFor="password">Create a password</label>
+          <label htmlFor="password">Password</label>
           <input
             type="password"
             id="password"
@@ -72,29 +57,21 @@ export default function SignUp() {
             onChange={(e) => setPassword(e.target.value)}
           />
 
-          <label htmlFor="confirmPassword">Confirm your password</label>
-          <input
-            type="password"
-            id="confirmPassword"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          />
-
           {isPending ? (
             <button type="submit" disabled>
-              Signing You Up...
+              Logging You In...
             </button>
           ) : (
-            <button type="submit">Signup</button>
+            <button type="submit">Login</button>
           )}
 
-          {signupError && <p className={styles.error}>{signupError}</p>}
+          {loginError && <p className={styles.error}>{loginError}</p>}
           {error && <p className={styles.error}>{error}</p>}
         </form>
         <p className={styles.signupText}>
-          Already have an account?{" "}
-          <Link href="/login">
-            <a className={styles.signupLink}>Login here.</a>
+          Don&apos;t have an account?{" "}
+          <Link href="/signup">
+            <a className={styles.signupLink}>Sign up here.</a>
           </Link>
         </p>
       </div>

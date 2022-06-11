@@ -1,6 +1,5 @@
 import { createContext, useReducer, useEffect } from "react";
 import { getUserSubs } from "../firebase/config";
-import { Router, useRouter } from "next/router";
 
 export const AppContext = createContext();
 
@@ -41,7 +40,6 @@ function reducer(state, action) {
 
 export default function AppContextProvider({ children }) {
   const initialState = { name: "", subscriptions: [], error: null, user: null };
-  const router = useRouter();
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -52,11 +50,6 @@ export default function AppContextProvider({ children }) {
 
   // Load the subscriptions from the server on the first load
   useEffect(() => {
-    if (!state.user) {
-      router.push("/signup");
-      return;
-    }
-
     const loadSubs = async () => {
       try {
         // TODO: this is when the context first is mounted - check if user is logged in
@@ -68,8 +61,10 @@ export default function AppContextProvider({ children }) {
         console.log(err.message);
       }
     };
-    loadSubs();
-  }, []);
+    if (state.user) {
+      loadSubs();
+    }
+  }, [state.user]);
 
   return (
     <AppContext.Provider

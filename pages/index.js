@@ -26,8 +26,11 @@ import Calendar from "@components/Calendar";
 import TitleBar from "@components/TitleBar";
 
 import { Months } from "utils/calendar";
+import { useRouter } from "next/router";
 
 export default function Index() {
+  const router = useRouter();
+
   const [listOneCollapsed, setListOneCollapsed] = useState(false);
   const [listTwoCollapsed, setListTwoCollapsed] = useState(false);
   const [monthlyTotalCollapsed, setMonthlyTotalCollapsed] = useState(false);
@@ -50,12 +53,13 @@ export default function Index() {
     }
   };
 
-  const { subscriptions } = useContext(AppContext);
+  const { subscriptions, user } = useContext(AppContext);
 
   useEffect(() => {
-    console.log("Mounted");
-    return () => console.log("Unmounted");
-  }, []);
+    if (!user) {
+      router.push("/login");
+    }
+  }, [user]);
   return (
     <>
       <Head>
