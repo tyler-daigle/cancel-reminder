@@ -1,7 +1,7 @@
 import Head from "next/head";
 import Link from "next/link";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 import { useContext } from "react";
 import { AppContext } from "store/AppContext";
@@ -51,8 +51,11 @@ export default function Index() {
   };
 
   const { subscriptions } = useContext(AppContext);
-  const subs = subscriptions; // TODO: rename subs to subscriptions referenced in the components below
 
+  useEffect(() => {
+    console.log("Mounted");
+    return () => console.log("Unmounted");
+  }, []);
   return (
     <>
       <Head>
@@ -74,7 +77,7 @@ export default function Index() {
             </CollapsingContainerHeader>
 
             <CollapsingContainer collapsed={listOneCollapsed}>
-              <SubscriptionList subscriptions={subs.slice(0, 2)} />
+              <SubscriptionList subscriptions={subscriptions.slice(0, 2)} />
             </CollapsingContainer>
           </Container>
 
@@ -88,7 +91,7 @@ export default function Index() {
               </CollapsingContainerHeader>
               {!listTwoCollapsed && (
                 <>
-                  <ItemCount count={subs.length} />
+                  <ItemCount count={subscriptions.length} />
                   <DropDownSelector
                     selectedOption={sortBy}
                     selectId="sortBy"
@@ -100,9 +103,8 @@ export default function Index() {
               )}
             </ItemListToolbar>
             <CollapsingContainer collapsed={listTwoCollapsed}>
-              <SubscriptionList subscriptions={subs} />
+              <SubscriptionList subscriptions={subscriptions} />
               <AddItemButton />
-              {/* <Link href="/add_subscription">Add Subscription</Link> */}
             </CollapsingContainer>
           </Container>
         </FlexContainer>
@@ -133,7 +135,7 @@ export default function Index() {
               Monthly Total
             </CollapsingContainerHeader>
             <CollapsingContainer collapsed={monthlyTotalCollapsed}>
-              <MonthlyTotal items={subs} />
+              <MonthlyTotal items={subscriptions} />
             </CollapsingContainer>
           </Container>
         </FlexContainer>

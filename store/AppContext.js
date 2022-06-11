@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect } from "react";
 import { getUserSubs } from "../firebase/config";
+import { Router, useRouter } from "next/router";
 
 export const AppContext = createContext();
 
@@ -40,6 +41,7 @@ function reducer(state, action) {
 
 export default function AppContextProvider({ children }) {
   const initialState = { name: "", subscriptions: [], error: null, user: null };
+  const router = useRouter();
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
@@ -50,18 +52,13 @@ export default function AppContextProvider({ children }) {
 
   // Load the subscriptions from the server on the first load
   useEffect(() => {
-    // getUserSubs(100).then((subList) => console.log(subList));
+    if (!state.user) {
+      router.push("/signup");
+      return;
+    }
 
     const loadSubs = async () => {
       try {
-        // const res = await fetch("http://localhost:3000/api/subscriptions");
-        // if (!res.ok) {
-        //   throw new Error(res.statusText);
-        // } else {
-        //   const data = await res.json();
-        //   dispatch({ type: ACTIONS.SET_SUBS, payload: data });
-        // }
-
         // TODO: this is when the context first is mounted - check if user is logged in
         // then check for subs. Setup event listener for when data is added to firestore.
         const subList = await getUserSubs(100);
