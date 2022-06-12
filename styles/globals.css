@@ -1,25 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Rubik:wght@400;700&display=swap");
 
 :root {
-  --primary-background: #282A36;
-  --secondary-background: #44475A;
+  --primary-background: #282a36;
+  --secondary-background: #44475a;
 
-  --primary-text: #F8F8F2;
-  --secondary-text: #BD93F9;
+  --primary-text: #f8f8f2;
+  --secondary-text: #bd93f9;
 
   --border-color: #575757;
 
-  --bright-yellow: #F1FA8C;
-  --bright-green: #50FA7B;
+  --bright-yellow: #f1fa8c;
+  --bright-green: #50fa7b;
 
-  --primary-button-bg: #BD93F9;
+  --primary-button-bg: #bd93f9;
   --primary-button-fg: #f8f8f2;
   --primary-button-active: #9c5df5;
 
-  --warning-button-bg: #FF5555;
+  --warning-button-bg: #ff5555;
   --warning-button-fg: #f8f8f2;
-  --warning-button-border: #CB3030;
-  --warning-button-active: #CB3030;
+  --warning-button-border: #cb3030;
+  --warning-button-active: #cb3030;
 
   --cancel-button-bg: #575757;
   --cancel-button-fg: #f8f8f2;
@@ -38,6 +38,7 @@ body {
   font-family: "Rubik", sans-serif;
   font-size: 16px;
   background-color: var(--primary-background);
+  height: 100%;
 }
 
 h1,
