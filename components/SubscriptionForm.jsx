@@ -8,7 +8,7 @@ import Subscription from "../types/Subscription";
 
 export default function SubscriptionForm() {
   const router = useRouter();
-  const { addSubscription } = useContext(AppContext);
+  const { addSubscription, user } = useContext(AppContext);
 
   const [itemName, setItemName] = useState("");
   const [itemCost, setItemCost] = useState("");
@@ -55,6 +55,8 @@ export default function SubscriptionForm() {
         "default.png",
         cancelUrl
       );
+      sub.uid = user.uid;
+
       try {
         addSubscription(sub);
         router.push("/");

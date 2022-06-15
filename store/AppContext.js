@@ -1,5 +1,5 @@
 import { createContext, useReducer, useEffect } from "react";
-import { getUserSubs } from "../firebase/config";
+import { getUserSubs, addSub } from "../firebase/config";
 
 import Subscription from "types/Subscription";
 
@@ -28,6 +28,7 @@ function reducer(state, action) {
       // add the user ID to the subscription
       action.payload.uid = state.user.uid;
       console.log("Adding:", action.payload);
+
       return {
         ...state,
         subscriptions: [...state.subscriptions, action.payload],
@@ -49,11 +50,11 @@ export default function AppContextProvider({ children }) {
 
   const [state, dispatch] = useReducer(reducer, initialState);
 
-  const addSubscription = (subscription) => {
+  const addSubscription = async (subscription) => {
     // TODO: some error checking here?
 
     console.log("Adding: ", subscription);
-
+    const doc = await addSub(subscription);
     dispatch({ type: ACTIONS.ADD_SUB, payload: subscription });
   };
 

@@ -37,7 +37,7 @@ export default class Subscription {
 
     // make sure a name was entered
     if (this.name === "") {
-      throw new Error("A name for the subscription must be providedd");
+      throw new Error("A name for the subscription must be provided");
     }
 
     this.name = name;
