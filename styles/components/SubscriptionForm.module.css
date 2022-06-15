@@ -105,3 +105,11 @@
   background-color: var(--primary-background);
   margin: 1.5rem auto;
 }
+
+.addSubError {
+  text-align: center;
+  font-weight: bold;
+  border: solid 1px var(--warning-button-bg);
+  padding: 1rem;
+  color: var(--warning-button-bg);
+}

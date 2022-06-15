@@ -49,9 +49,12 @@ export default function AppContextProvider({ children }) {
   const addSubscription = (subscription) => {
     // TODO: some error checking here?
 
-    dispatch({ type: ACTIONS.SET_SUBS, payload: subscription });
+    console.log("Adding: ", subscription);
+
+    dispatch({ type: ACTIONS.ADD_SUB, payload: subscription });
   };
 
+  // initial load of subscriptions after logging in
   useEffect(() => {
     const loadSubs = async () => {
       try {

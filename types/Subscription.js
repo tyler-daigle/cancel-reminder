@@ -9,8 +9,17 @@ export default class Subscription {
   startDate; // Date() object
   isActive = true;
   logo = "default.png";
+  url = "";
 
-  constructor(name, billingPeriod, price, startDate, isActive, logo) {
+  constructor(
+    name,
+    billingPeriod,
+    price,
+    startDate,
+    isActive,
+    logo,
+    url = "https://www.google.com"
+  ) {
     checkForValidBillingPeriod(billingPeriod);
 
     // make sure a Date object was used
@@ -38,5 +47,6 @@ export default class Subscription {
     this.isActive = typeof isActive === "boolean" ? isActive : false;
     this.logo = logo;
     this.id = nextId++;
+    this.url = url;
   }
 }

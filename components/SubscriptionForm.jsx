@@ -10,31 +10,93 @@ export default function SubscriptionForm() {
   const router = useRouter();
   const { addSubscription } = useContext(AppContext);
 
+  const [itemName, setItemName] = useState("");
+  const [itemCost, setItemCost] = useState("");
+  const [itemStartDate, setItemStartDate] = useState(null);
+  const [selectedBillingPeriod, setSelectedBillingPeriod] = useState(
+    BillingPeriod.MONTHLY
+  );
+  const [cancelUrl, setCancelUrl] = useState("");
+  const [error, setError] = useState(null);
+
+  const checkAllFields = () => {
+    if (
+      itemName === "" ||
+      itemCost === "" ||
+      itemStartDate === "" ||
+      cancelUrl === ""
+    ) {
+      setError("All fields must be filled in.");
+      return false;
+    } else {
+      setError(null);
+      return true;
+    }
+  };
+
   const submitForm = (e) => {
-    const testSub = new Subscription(
-      "XBox Live",
-      BillingPeriod.MONTHLY,
-      1499,
-      new Date(),
-      true,
-      "default.png"
-    );
+    // const testSub = new Subscription(
+    //   "XBox Live",
+    //   BillingPeriod.MONTHLY,
+    //   1499,
+    //   new Date(),
+    //   true,
+    //   "default.png"
+    // );
+
+    e.preventDefault();
+    if (checkAllFields()) {
+      console.log(itemName, itemCost, itemStartDate, cancelUrl, BillingPeriod);
+      setError("Not yet working...");
+    }
+    return;
 
     // on submit the price has to be converted to cents
-    addSubscription(testSub);
-    e.preventDefault();
-    console.log("Form submitted");
+    // addSubscription(testSub);
+    // console.log("Form submitted");
 
-    router.push("/");
+    // router.push("/");
   };
 
   const cancelForm = () => {
     router.push("/");
   };
 
-  const [selectedBillingPeriod, setSelectedBillingPeriod] = useState(
-    BillingPeriod.MONTHLY
-  );
+  const convertToCents = (cost) => {
+    // convert the number to cents
+    return Math.ceil(Number.parseFloat(cost) * 100);
+  };
+
+  const convertToDollars = (cost) => Number(cost / 100).toFixed(2);
+
+  const convertDate = (time) => {
+    // the date from the datepicker element is set to UTC and adjusting for user's timezone
+    // can cause it to display the wrong date.
+    if (time === null) {
+      return new Date();
+    }
+    const t = new Date(
+      time.getUTCFullYear(),
+      time.getUTCMonth(),
+      time.getUTCDate()
+    );
+
+    return t;
+  };
+
+  const createDateString = (date) => {
+    if (date === null) {
+      return new Date();
+    }
+    // create the string that the date picker needs to display the proper date
+    const month = date.getMonth() + 1;
+    const day = date.getDate();
+    const year = date.getFullYear();
+
+    return `${year}-${month < 10 ? "0" + month : month}-${
+      day < 10 ? "0" + day : day
+    }`;
+  };
 
   return (
     <div className={styles.formContainer}>
@@ -44,17 +106,33 @@ export default function SubscriptionForm() {
         <label className={styles.inputLabel} htmlFor="itemName">
           Item Name:
         </label>
-        <input type="text" id="itemName" />
+        <input
+          type="text"
+          id="itemName"
+          value={itemName}
+          onChange={(e) => setItemName(e.target.value)}
+        />
 
         <label className={styles.inputLabel} htmlFor="itemCost">
           Item Cost:
         </label>
-        <input type="number" id="itemCost" />
+        <input
+          type="number"
+          id="itemCost"
+          value={convertToDollars(itemCost)}
+          step="0.01"
+          onChange={(e) => setItemCost(convertToCents(e.target.value))}
+        />
 
         <label className={styles.inputLabel} htmlFor="itemStartDate">
           Subscription Start Date:
         </label>
-        <input type="date" id="itemStartDate" />
+        <input
+          type="date"
+          value={createDateString(convertDate(itemStartDate))}
+          id="itemStartDate"
+          onChange={(e) => setItemStartDate(convertDate(e.target.valueAsDate))}
+        />
 
         {/* TODO: Extract the billing radio buttons as a seperate component */}
         <fieldset className={styles.billingPeriodFieldSet}>
@@ -113,7 +191,12 @@ export default function SubscriptionForm() {
         <label className={styles.inputLabel} htmlFor="cancelUrl">
           Cancellation URL or site&apos;s main URL:
         </label>
-        <input type="url" id="cancelUrl" />
+        <input
+          type="url"
+          id="cancelUrl"
+          value={cancelUrl}
+          onChange={(e) => setCancelUrl(e.target.value)}
+        />
 
         <IconSelector />
 
@@ -130,6 +213,7 @@ export default function SubscriptionForm() {
           </button>
         </div>
       </form>
+      {error && <p className={styles.addSubError}>{error}</p>}
     </div>
   );
 }
