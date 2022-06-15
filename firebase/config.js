@@ -7,7 +7,7 @@ import {
   addDoc,
   Timestamp,
 } from "firebase/firestore";
-import { getAuth } from "firebase/auth";
+import { getAuth, signOut } from "firebase/auth";
 
 const COLLECTION_NAME = "subscriptions";
 
@@ -50,4 +50,8 @@ export async function addSub(sub) {
   } catch (err) {
     throw new Error(err);
   }
+}
+
+export async function logout() {
+  await signOut(auth);
 }
