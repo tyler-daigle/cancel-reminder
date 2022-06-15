@@ -1,9 +1,11 @@
 import styles from "@styles/components/MenuBar.module.css";
 import Link from "next/link";
-import { useState } from "react";
+import { useState, useContext } from "react";
+import { AppContext } from "store/AppContext";
 
 export default function MenuBar() {
   const [menuVisible, setMenuVisible] = useState(false);
+  const { logoutUser } = useContext(AppContext);
 
   return (
     <div className={styles.menuBarContainer}>
@@ -38,9 +40,7 @@ export default function MenuBar() {
             </Link>
           </li>
           <li className={styles.logoutLink}>
-            <Link href="/">
-              <a>Logout</a>
-            </Link>
+            <button onClick={() => logoutUser()}>Logout</button>
           </li>
         </ul>
       </nav>

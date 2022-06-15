@@ -54,4 +54,5 @@ export async function addSub(sub) {
 
 export async function logout() {
   await signOut(auth);
+  console.log("firebase logout");
 }

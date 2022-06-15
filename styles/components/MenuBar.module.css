@@ -47,7 +47,7 @@
   font-weight: bold;
 }
 
-.logoutLink a {
+.logoutLink button {
   color: var(--primary-background);
   font-weight: bold;
   background-color: var(--secondary-text);
@@ -57,7 +57,7 @@
   display: inline-block;
 }
 
-.logoutLink a:active {
+.logoutLink button:active {
   background-color: #575757;
 }
 

@@ -1,6 +1,6 @@
 import { createContext, useReducer, useEffect } from "react";
-import { getUserSubs, addSub } from "../firebase/config";
-
+import { getUserSubs, addSub, logout } from "../firebase/config";
+import { useRouter } from "next/router";
 import Subscription from "types/Subscription";
 
 export const AppContext = createContext();
@@ -11,6 +11,7 @@ export const ACTIONS = {
   SET_ERROR: "SET_ERROR",
   ADD_SUB: "ADD_SUB",
   LOGIN_USER: "LOGIN_USER",
+  LOGOUT_USER: "LOGOUT_USER",
 };
 
 // TODO: move reducer to separate file
@@ -40,6 +41,9 @@ function reducer(state, action) {
     case ACTIONS.LOGIN_USER:
       console.log("ACTION: LOGIN_USER");
       return { ...state, user: action.payload };
+
+    case ACTIONS.LOGOUT_USER:
+      return { ...state, user: null };
     default:
       return state;
   }
@@ -58,6 +62,11 @@ export default function AppContextProvider({ children }) {
     dispatch({ type: ACTIONS.ADD_SUB, payload: subscription });
   };
 
+  const logoutUser = async () => {
+    await logout();
+    console.log("logging out");
+    dispatch({ type: ACTIONS.LOGOUT_USER });
+  };
   // initial load of subscriptions after logging in
   useEffect(() => {
     const loadSubs = async () => {
@@ -99,6 +108,7 @@ export default function AppContextProvider({ children }) {
         addSubscription,
         error: state.error,
         user: state.user,
+        logoutUser,
         dispatch,
       }}
     >
