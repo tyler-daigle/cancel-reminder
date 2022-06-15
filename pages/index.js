@@ -55,11 +55,13 @@ export default function Index() {
 
   const { subscriptions, user } = useContext(AppContext);
 
+  // check if user is logged in, if not redirect to the login page
   useEffect(() => {
     if (!user) {
       router.push("/login");
     }
   }, [user]);
+
   return (
     <>
       <Head>

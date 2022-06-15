@@ -18,7 +18,8 @@ export const database = getFirestore(app);
 export const auth = getAuth(app);
 
 // move getUserSubs() to custom hook?
-export async function getUserSubs(userId) {
+export async function getUserSubs(uid) {
+  // get only the subs for the provided uid
   const subsCollection = collection(database, "subscriptions");
   const subsSnapshot = await getDocs(subsCollection);
   const subList = subsSnapshot.docs.map((doc) => doc.data());

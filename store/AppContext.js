@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect } from "react";
 import { getUserSubs } from "../firebase/config";
+import Subscription from "types/Subscription";
 
 export const AppContext = createContext();
 
@@ -54,13 +55,32 @@ export default function AppContextProvider({ children }) {
       try {
         // TODO: this is when the context first is mounted - check if user is logged in
         // then check for subs. Setup event listener for when data is added to firestore.
-        const subList = await getUserSubs(100);
-        dispatch({ type: ACTIONS.SET_SUBS, payload: subList });
+
+        // check user id and get subs for that user
+
+        const subList = await getUserSubs(state.user.uid);
+
+        // convert the firestore data to the Subscription Type
+        const subs = subList.map(
+          (sub) =>
+            new Subscription(
+              sub.name,
+              sub.billingPeriod,
+              sub.price,
+              sub.startDate.toDate(),
+              sub.isActive,
+              sub.logo
+            )
+        );
+
+        dispatch({ type: ACTIONS.SET_SUBS, payload: subs });
       } catch (err) {
         dispatch({ type: ACTIONS.SET_ERROR, payload: "Error loading data." });
         console.log(err.message);
       }
     };
+
+    // only grab the subs once the user is actually logged in
     if (state.user) {
       loadSubs();
     }
