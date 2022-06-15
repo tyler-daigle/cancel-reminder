@@ -25,6 +25,9 @@ function reducer(state, action) {
       return { ...state, subscriptions: action.payload };
 
     case ACTIONS.ADD_SUB:
+      // add the user ID to the subscription
+      action.payload.uid = state.user.uid;
+      console.log("Adding:", action.payload);
       return {
         ...state,
         subscriptions: [...state.subscriptions, action.payload],

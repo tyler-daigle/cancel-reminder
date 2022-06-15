@@ -12,7 +12,7 @@ export default function SubscriptionForm() {
 
   const [itemName, setItemName] = useState("");
   const [itemCost, setItemCost] = useState("");
-  const [itemStartDate, setItemStartDate] = useState(null);
+  const [itemStartDate, setItemStartDate] = useState(new Date());
   const [selectedBillingPeriod, setSelectedBillingPeriod] = useState(
     BillingPeriod.MONTHLY
   );
@@ -46,7 +46,21 @@ export default function SubscriptionForm() {
 
     e.preventDefault();
     if (checkAllFields()) {
-      console.log(itemName, itemCost, itemStartDate, cancelUrl, BillingPeriod);
+      const sub = new Subscription(
+        itemName,
+        selectedBillingPeriod,
+        Math.ceil(itemCost * 100),
+        itemStartDate,
+        true,
+        "default.png",
+        cancelUrl
+      );
+      try {
+        addSubscription(sub);
+        router.push("/");
+      } catch (err) {
+        setError(err);
+      }
       setError("Not yet working...");
     }
     return;
@@ -54,20 +68,11 @@ export default function SubscriptionForm() {
     // on submit the price has to be converted to cents
     // addSubscription(testSub);
     // console.log("Form submitted");
-
-    // router.push("/");
   };
 
   const cancelForm = () => {
     router.push("/");
   };
-
-  const convertToCents = (cost) => {
-    // convert the number to cents
-    return Math.ceil(Number.parseFloat(cost) * 100);
-  };
-
-  const convertToDollars = (cost) => Number(cost / 100).toFixed(2);
 
   const convertDate = (time) => {
     // the date from the datepicker element is set to UTC and adjusting for user's timezone
@@ -88,6 +93,8 @@ export default function SubscriptionForm() {
     if (date === null) {
       return new Date();
     }
+    // itemStartDate is a Date object but the date picker needs a string in the YYYY-MM-DD format
+
     // create the string that the date picker needs to display the proper date
     const month = date.getMonth() + 1;
     const day = date.getDate();
@@ -119,9 +126,9 @@ export default function SubscriptionForm() {
         <input
           type="number"
           id="itemCost"
-          value={convertToDollars(itemCost)}
-          step="0.01"
-          onChange={(e) => setItemCost(convertToCents(e.target.value))}
+          value={itemCost}
+          step="any"
+          onChange={(e) => setItemCost(e.target.value)}
         />
 
         <label className={styles.inputLabel} htmlFor="itemStartDate">
