@@ -1,5 +1,6 @@
 import { createContext, useReducer, useEffect } from "react";
 import { getUserSubs } from "../firebase/config";
+
 import Subscription from "types/Subscription";
 
 export const AppContext = createContext();
@@ -20,6 +21,7 @@ function reducer(state, action) {
       return { ...state, name: action.payload };
 
     case ACTIONS.SET_SUBS:
+      console.log(`SET_SUBS: ${action.payload}`);
       return { ...state, subscriptions: action.payload };
 
     case ACTIONS.ADD_SUB:
@@ -46,10 +48,10 @@ export default function AppContextProvider({ children }) {
 
   const addSubscription = (subscription) => {
     // TODO: some error checking here?
-    dispatch({ type: ACTIONS.ADD_SUB, payload: subscription });
+
+    dispatch({ type: ACTIONS.SET_SUBS, payload: subscription });
   };
 
-  // Load the subscriptions from the server on the first load
   useEffect(() => {
     const loadSubs = async () => {
       try {
@@ -59,8 +61,6 @@ export default function AppContextProvider({ children }) {
         // check user id and get subs for that user
 
         const subList = await getUserSubs(state.user.uid);
-
-        // convert the firestore data to the Subscription Type
         const subs = subList.map(
           (sub) =>
             new Subscription(
@@ -72,7 +72,6 @@ export default function AppContextProvider({ children }) {
               sub.logo
             )
         );
-
         dispatch({ type: ACTIONS.SET_SUBS, payload: subs });
       } catch (err) {
         dispatch({ type: ACTIONS.SET_ERROR, payload: "Error loading data." });
