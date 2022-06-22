@@ -1,4 +1,4 @@
-# When To Cancel Reminder 
+# Cancel Reminder 
 
 ![Desktop Screenshot of When To Cancel](./screenshot.png)
 
