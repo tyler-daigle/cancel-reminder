@@ -38,7 +38,8 @@ function numberDaysTillExpire(startDate) {
   const daysLeft = calcDaysTillRenew(startDate, todaysDate);
 
   return {
-    daysLeftString: `${daysLeft} Day${ending(daysLeft)}`,
+    daysLeftString:
+      daysLeft === "Today" ? "Today" : `${daysLeft} Day${ending(daysLeft)}`,
     expirationDate: "7/21/22",
   };
 }

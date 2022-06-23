@@ -13,9 +13,10 @@ export default function SubscriptionForm() {
   const [itemName, setItemName] = useState("");
   const [itemCost, setItemCost] = useState("");
   const [itemStartDate, setItemStartDate] = useState(new Date());
-  const [selectedBillingPeriod, setSelectedBillingPeriod] = useState(
-    BillingPeriod.MONTHLY
-  );
+  // const [selectedBillingPeriod, setSelectedBillingPeriod] = useState(
+  //   BillingPeriod.MONTHLY
+  // );
+  const selectedBillingPeriod = BillingPeriod.MONTHLY; // only monthly billing currently
   const [cancelUrl, setCancelUrl] = useState("");
   const [error, setError] = useState(null);
 
@@ -143,7 +144,7 @@ export default function SubscriptionForm() {
           onChange={(e) => setItemStartDate(convertDate(e.target.valueAsDate))}
         />
 
-        {/* TODO: Extract the billing radio buttons as a seperate component */}
+        {/* TODO: Extract the billing radio buttons as a seperate component
         <fieldset className={styles.billingPeriodFieldSet}>
           <legend className={styles.billingPeriodLegend}>Billing Period</legend>
           <div className={styles.billingPeriodRadioContainer}>
@@ -195,7 +196,7 @@ export default function SubscriptionForm() {
               <label htmlFor="billingPeriodSixMonths">Every 6 Months</label>
             </div>
           </div>
-        </fieldset>
+        </fieldset> */}
 
         <label className={styles.inputLabel} htmlFor="cancelUrl">
           Cancellation URL or site&apos;s main URL:
