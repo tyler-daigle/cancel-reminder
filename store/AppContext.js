@@ -40,9 +40,13 @@ function reducer(state, action) {
 
     case ACTIONS.LOGIN_USER:
       console.log("ACTION: LOGIN_USER");
+
+      //save the user to the localstorage
+      window.localStorage.setItem("user", action.payload);
       return { ...state, user: action.payload };
 
     case ACTIONS.LOGOUT_USER:
+      window.localStorage.removeItem("user");
       return { ...state, user: null };
     default:
       return state;
