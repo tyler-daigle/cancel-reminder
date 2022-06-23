@@ -31,6 +31,7 @@ export default function SubscriptionListItem({ subscriptionItem }) {
   );
 }
 
+// have to pass in billing period - so we can calculate the correct number of days
 function numberDaysTillExpire(startDate) {
   const ending = (num) => (num === 1 ? "" : "s");
   const todaysDate = new Date();

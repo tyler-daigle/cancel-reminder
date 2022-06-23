@@ -26,8 +26,6 @@ function reducer(state, action) {
       return { ...state, subscriptions: action.payload };
 
     case ACTIONS.ADD_SUB:
-      // add the user ID to the subscription
-      action.payload.uid = state.user.uid;
       console.log("Adding:", action.payload);
 
       return {
@@ -42,7 +40,7 @@ function reducer(state, action) {
       console.log("ACTION: LOGIN_USER");
 
       //save the user to the localstorage
-      window.localStorage.setItem("user", action.payload);
+      window.localStorage.setItem("user", JSON.stringify(action.payload));
       return { ...state, user: action.payload };
 
     case ACTIONS.LOGOUT_USER:
@@ -61,8 +59,13 @@ export default function AppContextProvider({ children }) {
   const addSubscription = async (subscription) => {
     // TODO: some error checking here?
 
+    // add the user id to the subscription
+    console.log(state);
+    console.log(state.user.uid);
+    subscription.uid = state.user.uid;
     console.log("Adding: ", subscription);
     const doc = await addSub(subscription);
+
     dispatch({ type: ACTIONS.ADD_SUB, payload: subscription });
   };
 

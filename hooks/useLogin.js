@@ -16,7 +16,7 @@ export default function useLogin() {
   useEffect(() => {
     if (window.localStorage.getItem("user")) {
       console.log("User already logged in");
-      const user = window.localStorage.getItem("user");
+      const user = JSON.parse(window.localStorage.getItem("user"));
       dispatch({ type: ACTIONS.LOGIN_USER, payload: user });
     }
   }, []);
