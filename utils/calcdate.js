@@ -1,4 +1,4 @@
-import { differenceInDays } from "date-fns";
+import { differenceInDays, add } from "date-fns";
 import BillingPeriod from "types/BillingPeriod";
 
 export function calcDaysTillRenew(
@@ -6,44 +6,37 @@ export function calcDaysTillRenew(
   todaysDate,
   billingPeriod = BillingPeriod.MONTHLY
 ) {
-  let numMonths = 0;
-  let numDays = 0;
-  let numYears = 0;
-
-  switch (billingPeriod) {
-    case BillingPeriod.SIXMONTHS:
-      numMonths = 6;
-      break;
-
-    case BillingPeriod.WEEKLY:
-      numDays = 7;
-      break;
-
-    case BillingPeriod.YEARLY:
-      numYears = 1;
-      break;
-
-    default:
-      numMonths = 1;
+  // monthly subscription where the current date is earlier than the sub date, meaning the renewal will
+  // happen in a number of days: subDate.getDate() - todaysDate.getDate()
+  if (
+    todaysDate.getDate() < subDate.getDate() &&
+    billingPeriod === BillingPeriod.MONTHLY
+  ) {
+    return differenceInDays(
+      add(todaysDate, { days: subDate.getDate() - todaysDate.getDate() }),
+      todaysDate
+    );
   }
 
-  if (todaysDate.getDate() >= subDate.getDate()) {
-    // we passed the date already, go to next month
-    // check for equal also, since that means we were already renewed
-
-    const nextRenewal = new Date(
-      todaysDate.getFullYear() + numYears,
-      todaysDate.getMonth() + numMonths,
-      subDate.getDate() + numDays
-    );
-    return differenceInDays(nextRenewal, todaysDate);
-  } else {
-    // we haven't reached the date yet
-    const nextRenewal = new Date(
-      todaysDate.getFullYear(),
-      todaysDate.getMonth(),
+  // if the date has already passed and it is a monthly subscription, switch to the next month and find the difference between the dates
+  if (
+    todaysDate.getDate() > subDate.getDate() &&
+    billingPeriod === BillingPeriod.MONTHLY
+  ) {
+    const nextDate = add(todaysDate, { months: 1 });
+    const renewDate = new Date(
+      nextDate.getFullYear(),
+      nextDate.getMonth(),
       subDate.getDate()
     );
-    return differenceInDays(nextRenewal, todaysDate);
+    return differenceInDays(renewDate, todaysDate);
   }
+
+  const nextRenewal = new Date(
+    todaysDate.getFullYear(),
+    todaysDate.getMonth(),
+    subDate.getDate()
+  );
+
+  return differenceInDays(nextRenewal, todaysDate);
 }
