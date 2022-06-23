@@ -25,7 +25,9 @@ export default function SubscriptionListItem({ subscriptionItem }) {
       />
       <span className={styles.subscriptionName}>{name}</span>
       <span className={styles.numberDaysLeft}>{daysLeftString}</span>
-      <span className={styles.expirationDate}>{expirationDate}</span>
+      <span className={styles.expirationDate}>
+        {expirationDate.toLocaleDateString()}
+      </span>
       <CancelButton />
     </li>
   );
@@ -35,11 +37,13 @@ export default function SubscriptionListItem({ subscriptionItem }) {
 function numberDaysTillExpire(startDate) {
   const ending = (num) => (num === 1 ? "" : "s");
   const todaysDate = new Date();
-  const daysLeft = calcDaysTillRenew(startDate, todaysDate);
+  const { daysLeftString, date } = calcDaysTillRenew(startDate, todaysDate);
 
   return {
     daysLeftString:
-      daysLeft === "Today" ? "Today" : `${daysLeft} Day${ending(daysLeft)}`,
-    expirationDate: "7/21/22",
+      daysLeftString === "Today"
+        ? "Today"
+        : `${daysLeftString} Day${ending(daysLeftString)}`,
+    expirationDate: date,
   };
 }

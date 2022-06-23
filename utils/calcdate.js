@@ -10,11 +10,14 @@ export function calcDaysTillRenew(
     case BillingPeriod.MONTHLY:
       // monthly subscription where the current date is earlier than the sub date, meaning the renewal will
       // happen in a number of days: subDate.getDate() - todaysDate.getDate()
+      const renewDate = add(todaysDate, {
+        days: subDate.getDate() - todaysDate.getDate(),
+      });
       if (todaysDate.getDate() < subDate.getDate()) {
-        return differenceInDays(
-          add(todaysDate, { days: subDate.getDate() - todaysDate.getDate() }),
-          todaysDate
-        );
+        return {
+          daysLeftString: differenceInDays(renewDate, todaysDate),
+          date: renewDate,
+        };
       }
 
       // if the date has already passed and it is a monthly subscription, switch to the next month and find the difference between the dates
@@ -25,9 +28,12 @@ export function calcDaysTillRenew(
           nextDate.getMonth(),
           subDate.getDate()
         );
-        return differenceInDays(renewDate, todaysDate);
+        return {
+          daysLeftString: differenceInDays(renewDate, todaysDate),
+          date: renewDate,
+        };
       }
-      return "Today"; // if we get here the dates are equal
+      return { daysLeftString: "Today", date: todaysDate }; // if we get here the dates are equal
 
     default:
     case BillingPeriod.SIXMONTHS:
